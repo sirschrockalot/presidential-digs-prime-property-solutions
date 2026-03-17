@@ -48,6 +48,9 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/situations/:slug" element={<SituationPage />} />
             <Route path="/locations/:slug" element={<LocationPage />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/sms-policy" element={<SMSPolicy />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
