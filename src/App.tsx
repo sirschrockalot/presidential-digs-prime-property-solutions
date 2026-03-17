@@ -52,6 +52,7 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/sms-policy" element={<SMSPolicy />} />
+            <Route path="/jv" element={<JVPartner />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
