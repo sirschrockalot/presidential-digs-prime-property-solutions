@@ -4,7 +4,7 @@ const items = [
   { value: "$0.00", label: "Fees Paid by Seller" },
   { value: "Any", label: "Property Condition" },
   { value: "7 Days", label: "Fastest Closing" },
-  { value: "A+", label: "BBB Rating" },
+  { value: "A+", label: "BBB Rating", href: "https://www.bbb.org/us/wi/waukesha/profile/real-estate-services/presidential-digs-real-estate-llc-0694-1000061630" },
 ];
 
 const TrustBar = () => (
