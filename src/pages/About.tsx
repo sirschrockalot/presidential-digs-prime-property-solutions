@@ -122,8 +122,8 @@ const About = () => (
             {team.map((member, i) => (
               <AnimatedSection key={member.name} delay={i * 0.12}>
                 <div className="bg-card rounded-sm p-8 border border-border h-full">
-                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-5">
-                    <span className="text-primary-foreground font-mono font-bold text-lg tracking-tight">{member.initials}</span>
+                  <div className="w-20 h-20 rounded-full overflow-hidden mb-5 border-2 border-border">
+                    <img src={member.photo} alt={member.name} className="w-full h-full object-cover object-top" />
                   </div>
                   <h3 className="text-display text-xl text-foreground mb-1">{member.name}</h3>
                   <span className="text-accent text-xs font-semibold tracking-[0.1em] uppercase block mb-4">{member.role}</span>
