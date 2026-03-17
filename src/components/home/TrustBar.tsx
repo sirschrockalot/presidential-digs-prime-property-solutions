@@ -1,28 +1,25 @@
-import { DollarSign, Clock, Home } from "lucide-react";
 import AnimatedSection from "../AnimatedSection";
 
 const items = [
-  { icon: DollarSign, label: "No Commissions", desc: "Zero agent fees or hidden costs" },
-  { icon: Home, label: "As-Is Purchase", desc: "No repairs or cleaning required" },
-  { icon: Clock, label: "7-Day Closing", desc: "On your timeline, as fast as a week" },
+  { value: "$0.00", label: "Fees Paid by Seller" },
+  { value: "Any", label: "Property Condition" },
+  { value: "7 Days", label: "Fastest Closing" },
+  { value: "24 Hrs", label: "Offer Delivery" },
 ];
 
 const TrustBar = () => (
-  <section className="border-y border-border bg-card">
-    <div className="container-narrow px-6 py-10 md:py-12 grid md:grid-cols-3 gap-8">
-      {items.map((item, i) => (
-        <AnimatedSection key={item.label} delay={i * 0.05}>
-          <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-sm bg-secondary flex items-center justify-center shrink-0">
-              <item.icon className="w-5 h-5 text-accent" />
+  <section className="bg-background border-b border-border">
+    <div className="container-narrow px-5 md:px-6 py-8 md:py-10">
+      <AnimatedSection>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 md:divide-x md:divide-border">
+          {items.map((item) => (
+            <div key={item.label} className="md:px-8 first:md:pl-0 last:md:pr-0 text-center md:text-left">
+              <span className="block font-mono text-lg md:text-xl font-bold text-foreground tabular-nums tracking-tight">{item.value}</span>
+              <span className="text-xs text-muted-foreground font-medium mt-0.5 block">{item.label}</span>
             </div>
-            <div>
-              <h3 className="font-semibold text-sm text-foreground">{item.label}</h3>
-              <p className="text-sm text-muted-foreground mt-1">{item.desc}</p>
-            </div>
-          </div>
-        </AnimatedSection>
-      ))}
+          ))}
+        </div>
+      </AnimatedSection>
     </div>
   </section>
 );

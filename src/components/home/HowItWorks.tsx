@@ -1,29 +1,29 @@
-import { Send, FileSearch, Banknote } from "lucide-react";
 import AnimatedSection from "../AnimatedSection";
 
 const steps = [
-  { num: "01", icon: Send, title: "Request", desc: "Share your property address. It takes 60 seconds and there's zero obligation." },
-  { num: "02", icon: FileSearch, title: "Review", desc: "We analyze your property and present a fair, transparent cash offer within 24 hours." },
-  { num: "03", icon: Banknote, title: "Close", desc: "Choose your closing date. We handle the paperwork, pay all closing costs, and you walk away with cash." },
+  { num: "01", title: "Request", desc: "Share your property address and basic details. It takes 60 seconds." },
+  { num: "02", title: "Review", desc: "We analyze comparable sales and present a fair, transparent cash offer within 24 hours." },
+  { num: "03", title: "Close", desc: "Choose your closing date. We handle all paperwork, pay closing costs, and you walk away with cash." },
 ];
 
 const HowItWorks = () => (
-  <section className="section-padding bg-card">
+  <section className="section-padding bg-background">
     <div className="container-narrow">
       <AnimatedSection>
-        <div className="text-center mb-14">
-          <span className="text-accent font-semibold tracking-widest uppercase text-xs mb-3 block">Simple Process</span>
-          <h2 className="text-display text-3xl md:text-5xl text-foreground">How It Works</h2>
+        <div className="max-w-2xl mb-16 md:mb-20">
+          <span className="label-tag">Process</span>
+          <h2 className="text-display text-3xl md:text-[3.25rem] text-foreground">
+            Three steps to certainty.
+          </h2>
         </div>
       </AnimatedSection>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 gap-0 md:gap-0">
         {steps.map((step, i) => (
           <AnimatedSection key={step.num} delay={i * 0.1}>
-            <div className="gold-border-hover card-lift p-8 rounded-sm bg-card">
-              <span className="font-mono text-3xl font-bold text-accent/30 block mb-4 tabular-nums">{step.num}</span>
-              <step.icon className="w-6 h-6 text-foreground mb-4" />
-              <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+            <div className={`relative p-8 md:p-10 ${i < steps.length - 1 ? "border-b md:border-b-0 md:border-r border-border" : ""}`}>
+              <span className="font-mono text-[3.5rem] md:text-[4.5rem] font-bold text-border/80 block leading-none mb-4 tabular-nums select-none">{step.num}</span>
+              <h3 className="text-xl font-semibold text-foreground mb-3">{step.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
             </div>
           </AnimatedSection>

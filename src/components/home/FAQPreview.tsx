@@ -15,25 +15,25 @@ const FAQPreview = () => {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="section-padding bg-card">
+    <section className="section-padding bg-secondary">
       <div className="container-narrow max-w-3xl">
         <AnimatedSection>
-          <div className="text-center mb-14">
-            <span className="text-accent font-semibold tracking-widest uppercase text-xs mb-3 block">Common Questions</span>
-            <h2 className="text-display text-3xl md:text-5xl text-foreground">Frequently Asked Questions</h2>
+          <div className="text-center mb-12 md:mb-14">
+            <span className="label-tag">Common Questions</span>
+            <h2 className="text-display text-3xl md:text-[3.25rem] text-foreground">Answers you need.</h2>
           </div>
         </AnimatedSection>
 
         <div className="space-y-2">
           {faqs.map((faq, i) => (
             <AnimatedSection key={i} delay={i * 0.05}>
-              <div className="border border-border rounded-sm overflow-hidden">
+              <div className="bg-card border border-border rounded-sm overflow-hidden">
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-secondary/50 transition-colors"
+                  className="w-full flex items-center justify-between px-5 md:px-6 py-5 text-left group"
                 >
                   <span className="font-medium text-sm text-foreground pr-4">{faq.q}</span>
-                  <ChevronDown className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform duration-200 ${open === i ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform duration-300 ${open === i ? "rotate-180" : ""}`} />
                 </button>
                 <AnimatePresence>
                   {open === i && (
@@ -44,7 +44,7 @@ const FAQPreview = () => {
                       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-5 text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
+                      <p className="px-5 md:px-6 pb-5 text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -54,8 +54,8 @@ const FAQPreview = () => {
         </div>
 
         <AnimatedSection>
-          <div className="text-center mt-10">
-            <Link to="/faq" className="text-sm font-semibold text-accent hover:underline underline-offset-4">
+          <div className="text-center mt-8">
+            <Link to="/faq" className="text-[13px] font-semibold text-accent hover:underline underline-offset-4 transition-all">
               View All Questions →
             </Link>
           </div>
