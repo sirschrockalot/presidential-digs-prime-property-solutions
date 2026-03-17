@@ -4,7 +4,7 @@ const items = [
   { value: "$0.00", label: "Fees Paid by Seller" },
   { value: "Any", label: "Property Condition" },
   { value: "7 Days", label: "Fastest Closing" },
-  { value: "24 Hrs", label: "Offer Delivery" },
+  { value: "A+", label: "BBB Rating" },
 ];
 
 const TrustBar = () => (
