@@ -47,6 +47,7 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
       phone: "",
       email: "",
       message: "",
+      smsConsent: false as unknown as true,
     },
   });
 
