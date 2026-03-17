@@ -5,6 +5,8 @@ import FinalCTA from "../components/home/FinalCTA";
 import { Heart, Star, Lightbulb, Sparkles, HandHeart, Users } from "lucide-react";
 import { Seo } from "../components/Seo";
 import familyPhoto from "@/assets/family.jpg";
+import nicolePhoto from "@/assets/nicole.jpg";
+import joelPhoto from "@/assets/joel.jpg";
 
 const values = [
   { icon: Heart, title: "Family First", desc: "Treat every customer like they are part of our family." },
