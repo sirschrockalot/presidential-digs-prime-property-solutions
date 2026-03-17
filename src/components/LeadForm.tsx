@@ -14,6 +14,7 @@ const leadSchema = z.object({
   email: z.string().email("Please enter a valid email address."),
   message: z.string().max(1000).optional(),
   smsConsent: z.literal(true, { errorMap: () => ({ message: "You must agree to receive SMS messages." }) }),
+  honeypot: z.string().max(0).optional(),
 });
 
 type LeadFormValues = z.infer<typeof leadSchema>;
@@ -48,6 +49,7 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
       email: "",
       message: "",
       smsConsent: false as unknown as true,
+      honeypot: "",
     },
   });
 
@@ -62,6 +64,8 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
         message: values.message,
         source,
         page: inferredPage,
+        smsConsent: values.smsConsent,
+        honeypot: values.honeypot,
       });
       trackLeadSubmitted({
         source,
@@ -119,6 +123,18 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
         </div>
       )}
       <form onSubmit={handleSubmit(onSubmit)} className={`space-y-3 ${isFull ? "grid md:grid-cols-2 gap-3 space-y-0" : ""}`}>
+        {/* Honeypot field for basic bot/spam protection */}
+        <div className="hidden" aria-hidden="true">
+          <label>
+            Company
+            <input
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              {...register("honeypot")}
+            />
+          </label>
+        </div>
         {submitError && (
           <div className={`text-[11px] text-destructive bg-destructive/5 border border-destructive/30 rounded-sm px-3 py-2 ${isFull ? "md:col-span-2" : ""}`}>
             {submitError}

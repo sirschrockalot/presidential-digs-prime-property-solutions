@@ -5,7 +5,7 @@ import FinalCTA from "../components/home/FinalCTA";
 import { Send, FileSearch, Banknote, Handshake } from "lucide-react";
 import { Seo } from "../components/Seo";
 
-// TODO:PROCESS - verify these timelines and privacy commitments against your actual operational process and compliance standards
+// TODO_PRODUCTION_PROCESS - verify these timelines and privacy commitments against your actual operational process and compliance standards
 const steps = [
   { num: "01", icon: Send, title: "Submit Your Property", desc: "Fill out our simple form with your property address and basic details. It takes less than 60 seconds and carries zero obligation.", detail: "We never share your information outside of our team or trusted partners without your consent." },
   { num: "02", icon: FileSearch, title: "Receive Your Offer", desc: "Our team reviews comparable sales data, property condition, and local market dynamics to formulate a fair, transparent cash offer.", detail: "You'll typically receive your offer within 24 hours of submission." },

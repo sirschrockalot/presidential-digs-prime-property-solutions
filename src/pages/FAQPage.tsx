@@ -56,12 +56,28 @@ const FAQPage = () => {
     setOpenItems((prev) => ({ ...prev, [cat]: prev[cat] === idx ? null : idx }));
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: categories.flatMap((cat) =>
+      cat.questions.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.a,
+        },
+      })),
+    ),
+  };
+
   return (
     <>
       <Seo
         title="FAQ | Selling Your House to Presidential Digs"
         description="Get clear answers to the most common questions about selling your house for cash to Presidential Digs — process, pricing, timelines, and more."
         canonicalPath="/faq"
+        jsonLd={faqJsonLd}
       />
       <Header />
       <main>

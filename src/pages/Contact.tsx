@@ -32,8 +32,9 @@ const Contact = () => (
                     { icon: Phone, label: "Phone", value: "414 409 5086", href: "tel:+14144095086" },
                     { icon: Mail, label: "Email", value: "deals@presidentialdigs.com", href: "mailto:deals@presidentialdigs.com" },
                     // TODO:CONTENT - confirm how you want to describe your primary office / footprint
-                    { icon: MapPin, label: "Office", value: "Serving motivated home sellers across key U.S. markets" },
-                    // TODO:CONTENT - confirm your standard availability / call center hours
+                    // TODO_PRODUCTION_OFFICE_COPY - confirm how you want to describe your primary office / footprint
+                    { icon: MapPin, label: "Office", value: "Serving motivated home sellers across Wisconsin, Georgia, Tennessee, Ohio, North Carolina, and Florida" },
+                    // TODO_PRODUCTION_HOURS - confirm your standard availability / call center hours
                     { icon: Clock, label: "Hours", value: "Mon–Fri 8am–7pm, Sat 9am–5pm" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-start gap-4">

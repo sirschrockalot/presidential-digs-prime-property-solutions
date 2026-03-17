@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import AnimatedSection from "../AnimatedSection";
 import { MapPin } from "lucide-react";
 
-// TODO:SERVICE_AREAS - keep this list in sync with your actual active markets
+// TODO_PRODUCTION_SERVICE_AREAS - keep this list in sync with your actual active markets
 const states = [
   { name: "Wisconsin", slug: "wisconsin", cities: ["Milwaukee", "Madison", "Green Bay"] },
   { name: "Georgia", slug: "georgia", cities: ["Atlanta", "Savannah", "Augusta"] },

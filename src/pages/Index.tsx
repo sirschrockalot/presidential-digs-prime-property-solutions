@@ -17,6 +17,17 @@ const Index = () => (
       title="Presidential Digs | Sell Your House Fast for Cash"
       description="Sell your house quickly for a fair cash offer with no repairs, fees, or showings. Presidential Digs gives motivated sellers a dignified, professional way to move on."
       canonicalPath="/"
+      jsonLd={[
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Presidential Digs",
+          url: import.meta.env.VITE_SITE_URL || undefined,
+          logo: import.meta.env.VITE_SOCIAL_IMAGE_URL || undefined,
+          telephone: "+1-414-409-5086",
+          email: "deals@presidentialdigs.com",
+        },
+      ]}
     />
     <Header />
     <main>

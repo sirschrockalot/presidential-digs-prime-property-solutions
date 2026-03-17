@@ -10,16 +10,21 @@ interface SeoProps {
   twitterTitle?: string;
   twitterDescription?: string;
   twitterImage?: string;
+  jsonLd?: unknown | unknown[];
 }
 
-const DEFAULT_IMAGE = "/placeholder.svg";
+const DEFAULT_IMAGE = import.meta.env.VITE_SOCIAL_IMAGE_URL || "/placeholder.svg";
 
 const getBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_SITE_URL;
+  if (envUrl) {
+    return envUrl.replace(/\/+$/, "");
+  }
   if (typeof window !== "undefined" && window.location.origin) {
     return window.location.origin;
   }
-  // TODO:SEO - set your production origin here if needed for server rendering or prerendering
-  return "https://presidentialdigs.com";
+  // Fallback only used in non-browser contexts when VITE_SITE_URL is not set.
+  return "http://localhost:8080";
 };
 
 const upsertMeta = (selector: string, attributes: Record<string, string>) => {
@@ -54,6 +59,7 @@ export const Seo = ({
   twitterTitle,
   twitterDescription,
   twitterImage,
+  jsonLd,
 }: SeoProps) => {
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -110,7 +116,26 @@ export const Seo = ({
       name: "twitter:image",
       content: resolvedTwitterImage,
     });
-  }, [title, description, canonicalPath, ogTitle, ogDescription, ogImage, twitterTitle, twitterDescription, twitterImage]);
+
+    // Structured data (JSON-LD)
+    const existingScripts = document.querySelectorAll('script[data-seo-jsonld="true"]');
+    existingScripts.forEach((node) => node.parentNode?.removeChild(node));
+
+    if (jsonLd) {
+      const payloads = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+      payloads.forEach((payload) => {
+        try {
+          const script = document.createElement("script");
+          script.type = "application/ld+json";
+          script.setAttribute("data-seo-jsonld", "true");
+          script.textContent = JSON.stringify(payload);
+          document.head.appendChild(script);
+        } catch {
+          // ignore JSON-LD serialization errors
+        }
+      });
+    }
+  }, [title, description, canonicalPath, ogTitle, ogDescription, ogImage, twitterTitle, twitterDescription, twitterImage, jsonLd]);
 
   return null;
 };

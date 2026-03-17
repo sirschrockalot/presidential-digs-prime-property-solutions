@@ -6,21 +6,36 @@ export interface SubmitLeadPayload {
   message?: string;
   source?: string;
   page?: string;
+  smsConsent: boolean;
+  honeypot?: string;
 }
 
 export interface SubmitLeadResult {
   id: string;
 }
 
-// TODO:API - point this to your real backend endpoint when ready
-const LEAD_ENDPOINT = "/api/leads";
+const getLeadEndpoint = () => {
+  const base = import.meta.env.VITE_LEAD_API_BASE_URL;
+  if (base) {
+    try {
+      const url = new URL("/api/leads", base);
+      return url.toString();
+    } catch {
+      // eslint-disable-next-line no-console
+      console.warn("Invalid VITE_LEAD_API_BASE_URL, falling back to relative /api/leads");
+    }
+  }
+  return "/api/leads";
+};
 
 export async function submitLead(payload: SubmitLeadPayload): Promise<SubmitLeadResult> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15000);
 
   try {
-    const response = await fetch(LEAD_ENDPOINT, {
+    const endpoint = getLeadEndpoint();
+
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

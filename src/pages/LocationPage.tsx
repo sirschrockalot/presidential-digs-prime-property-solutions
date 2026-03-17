@@ -7,7 +7,7 @@ import FinalCTA from "../components/home/FinalCTA";
 import { MapPin, Check } from "lucide-react";
 import { Seo } from "../components/Seo";
 
-// TODO:SERVICE_AREAS - keep this map aligned with `ServiceAreas` and your live markets
+// TODO_PRODUCTION_SERVICE_AREAS - keep this map aligned with `ServiceAreas` and your live markets
 const locationData: Record<string, {
   name: string;
   type: "state" | "city";

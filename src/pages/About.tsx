@@ -140,6 +140,7 @@ const About = () => (
         <div className="container-narrow text-center">
           <AnimatedSection>
             <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+              {/* TODO_PRODUCTION_STATS - confirm and update these headline metrics */}
               {[
                 { num: "500+", label: "Homes Purchased" },
                 { num: "8.4", label: "Avg. Days to Close" },
