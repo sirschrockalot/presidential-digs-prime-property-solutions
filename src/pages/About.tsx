@@ -5,6 +5,8 @@ import FinalCTA from "../components/home/FinalCTA";
 import { Heart, Star, Lightbulb, Sparkles, HandHeart, Users } from "lucide-react";
 import { Seo } from "../components/Seo";
 import familyPhoto from "@/assets/family.jpg";
+import nicolePhoto from "@/assets/nicole.jpg";
+import joelPhoto from "@/assets/joel.jpg";
 
 const values = [
   { icon: Heart, title: "Family First", desc: "Treat every customer like they are part of our family." },
@@ -19,13 +21,13 @@ const team = [
     name: "Nicole Schrock",
     role: "CEO & Head Designer",
     bio: "I have lived in Waukesha my whole life. I have always had a knack for design and decorating. I love spending time with my family and especially my 3 boys.",
-    initials: "NS",
+    photo: nicolePhoto,
   },
   {
     name: "Joel Schrock",
     role: "President",
     bio: "While I grew up in Nevada, I have lived in Waukesha for the last 20 years. I have always had a passion for real estate and look for every chance I get to spread an entrepreneurial spirit to my children.",
-    initials: "JS",
+    photo: joelPhoto,
   },
 ];
 
@@ -120,8 +122,8 @@ const About = () => (
             {team.map((member, i) => (
               <AnimatedSection key={member.name} delay={i * 0.12}>
                 <div className="bg-card rounded-sm p-8 border border-border h-full">
-                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-5">
-                    <span className="text-primary-foreground font-mono font-bold text-lg tracking-tight">{member.initials}</span>
+                  <div className="w-20 h-20 rounded-full overflow-hidden mb-5 border-2 border-border">
+                    <img src={member.photo} alt={member.name} className="w-full h-full object-cover object-top" />
                   </div>
                   <h3 className="text-display text-xl text-foreground mb-1">{member.name}</h3>
                   <span className="text-accent text-xs font-semibold tracking-[0.1em] uppercase block mb-4">{member.role}</span>
