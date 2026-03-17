@@ -26,10 +26,7 @@ const Header = () => {
             className="flex items-center gap-2"
             onClick={() => trackNavClick("Logo", "/", "header")}
           >
-            <div className="w-7 h-7 md:w-8 md:h-8 bg-primary rounded-sm flex items-center justify-center">
-              <span className="text-primary-foreground font-serif text-sm md:text-base font-bold">P</span>
-            </div>
-            <span className="text-display text-lg md:text-xl text-foreground">Presidential Digs</span>
+            <img src={logo} alt="Presidential Digs Real Estate" className="h-8 md:h-10 w-auto" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-7">
