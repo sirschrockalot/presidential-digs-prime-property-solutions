@@ -49,6 +49,7 @@ export const trackCTA = (label: string, location: string, href?: string) => {
 export interface TrackLeadSubmittedPayload {
   source?: string;
   page?: string;
+  [key: string]: unknown;
 }
 
 export const trackLeadSubmitted = (payload: TrackLeadSubmittedPayload) => {
