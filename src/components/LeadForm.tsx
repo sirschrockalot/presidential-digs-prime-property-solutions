@@ -167,6 +167,22 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
             {...register("message")}
           />
         )}
+        <div className={`flex items-start gap-2.5 ${isFull ? "md:col-span-2" : ""}`}>
+          <input
+            type="checkbox"
+            id="smsConsent"
+            className="mt-1 h-4 w-4 shrink-0 rounded-sm border border-border accent-accent cursor-pointer"
+            {...register("smsConsent")}
+          />
+          <label htmlFor="smsConsent" className="text-[11px] leading-relaxed text-muted-foreground cursor-pointer">
+            I agree to receive SMS/text messages from Presidential Digs. Msg & data rates may apply. Reply STOP to opt out. See our{" "}
+            <a href="/sms-policy" className="text-accent underline underline-offset-2 hover:text-accent/80">SMS Policy</a>{" "}and{" "}
+            <a href="/privacy" className="text-accent underline underline-offset-2 hover:text-accent/80">Privacy Policy</a>.
+          </label>
+        </div>
+        {errors.smsConsent && (
+          <p className={`text-[11px] text-destructive ${isFull ? "md:col-span-2" : ""}`}>{errors.smsConsent.message}</p>
+        )}
         <button
           type="submit"
           className={`btn-accent w-full h-13 ${isFull ? "md:col-span-2" : ""}`}
