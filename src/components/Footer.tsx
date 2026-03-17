@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { trackNavClick } from "@/lib/analytics";
+import { trackNavClick, trackPhoneClick } from "@/lib/analytics";
 
 const Footer = () => (
   <footer className="bg-foreground text-background relative overflow-hidden">
@@ -88,7 +88,13 @@ const Footer = () => (
         <div>
           <h4 className="font-semibold text-[11px] uppercase tracking-[0.2em] mb-5 opacity-40">Contact</h4>
           <div className="flex flex-col gap-3 text-sm opacity-60">
-            <a href="tel:+14144095086" className="hover:opacity-100 transition-opacity">414 409 5086</a>
+            <a
+              href="tel:+14144095086"
+              className="hover:opacity-100 transition-opacity"
+              onClick={() => trackPhoneClick("footer")}
+            >
+              414 409 5086
+            </a>
             <a href="mailto:deals@presidentialdigs.com" className="hover:opacity-100 transition-opacity">deals@presidentialdigs.com</a>
           </div>
         </div>

@@ -21,9 +21,6 @@ export default async function handler(req, res) {
 
   const id = (globalThis.crypto && crypto.randomUUID && crypto.randomUUID()) || `${Date.now()}`;
 
-  // TODO:INTEGRATION - connect this handler to your CRM, email service,
-  // or internal lead intake system. The payload below is the normalized shape
-  // you can rely on from the frontend.
   const normalizedLead = {
     id,
     name,

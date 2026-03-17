@@ -1,45 +1,104 @@
-## Presidential Digs Frontend
+## Presidential Digs Marketing Site
 
-This is the React + Vite + Tailwind/Shadcn UI frontend for the Presidential Digs marketing site and lead funnel. It started from a Lovable-generated base and has been cleaned up to serve as a production-ready foundation.
+This repository contains the production frontend for the Presidential Digs marketing site and lead funnel. It is a mobile‑first React/Vite single‑page application with a premium design, wired for lead capture, SEO, and analytics.
 
 ### Tech stack
 
-- **Framework**: React 18 with TypeScript
+- **Framework**: React 18 + TypeScript
 - **Build tool**: Vite
-- **Styling**: Tailwind CSS with custom design tokens and Shadcn-style UI components
-- **Routing**: `react-router-dom`
-- **Data/async**: `@tanstack/react-query` (provider wired in `App.tsx` for future API integrations)
-- **Forms & validation (ready to use)**: `react-hook-form`, `zod`
-- **Testing**: Vitest + Testing Library, Playwright (config in `playwright.config.ts`)
+- **Styling**: Tailwind CSS with custom tokens and Shadcn‑style UI components
+- **Routing**: `react-router-dom` (SPA with client‑side routes)
+- **Data / async**: `@tanstack/react-query` (provider ready for API integrations)
+- **Forms & validation**: `react-hook-form` + `zod`
+- **Testing**: Vitest + Testing Library, Playwright (smoke/E2E ready)
 
-### Project structure
+### Key features
 
-- **`src/App.tsx`**: App shell with router, React Query provider, toast/tooltip providers.
-- **`src/pages/*`**: Top-level pages (`Index`, `SellYourHouse`, `HowItWorksPage`, `About`, `FAQPage`, `Contact`, `SituationPage`, `LocationPage`, `NotFound`).
-- **`src/components`**: Layout (`Header`, `Footer`), shared sections, and the `LeadForm`.
-- **`src/components/home/*`**: Home page sections (hero, trust bar, testimonials, FAQ preview, etc.).
-- **`src/components/ui/*`**: Reusable UI primitives (buttons, inputs, dialog, etc.) for any new features.
-- **`src/hooks/*`**: Place for reusable hooks (e.g., analytics, feature flags, data fetching).
-- **`src/lib/*`**: Utility functions and future service modules (API clients, mappers, etc.).
+- High‑conversion homepage with hero, trust, testimonial, situation, and location sections.
+- Dedicated pages for:
+  - Selling your house fast
+  - How it works
+  - About / team
+  - FAQ
+  - Contact
+  - Situations (`/situations/:slug`)
+  - Locations (`/locations/:slug`)
+  - JV partner intake
+  - Privacy Policy, Terms of Service, SMS Policy
+- Lead form with:
+  - Validation via `zod`
+  - SMS consent checkbox
+  - Honeypot spam protection
+  - API abstraction + Vercel serverless function (`/api/leads`)
 
-### Where to plug in functionality
+### Project structure (high level)
 
-- **Lead capture & business logic**: Start in `LeadForm.tsx`. Replace the local `useState` and `handleSubmit` with `react-hook-form` + `zod`, and call your lead API via `react-query` or a simple `fetch` helper from `src/lib`.
-- **API clients / integrations**: Create modules in `src/lib` (e.g., `lead-api.ts`, `analytics.ts`) and import them into pages/components.
-- **SEO metadata**: Global defaults live in `index.html`. For per-route SEO, you can add a lightweight `<Helmet>`-style solution or a custom `Seo` component used inside each page component.
-- **Analytics**: Add your script/SDK bootstrap to `index.html` or a top-level `AnalyticsProvider` in `App.tsx`, then expose typed helper functions from `src/lib/analytics.ts` and call them from components (CTA clicks, form submits, etc.).
+- `src/App.tsx` – App shell, routing, and analytics page‑view listener.
+- `src/pages/*` – Top‑level pages (marketing, legal, and JV).
+- `src/components/` – Layout (`Header`, `Footer`), shared elements, `LeadForm`, and home sections.
+- `src/components/home/*` – Homepage sections (hero, trust bar, testimonials, situations, etc.).
+- `src/components/ui/*` – Reusable UI primitives (buttons, inputs, dialogs, etc.).
+- `src/lib/lead-api.ts` – Lead submission client abstraction.
+- `src/lib/analytics.ts` – Analytics event helpers (page views, CTAs, nav, phone, lead success/failure).
+- `src/components/Seo.tsx` – Reusable SEO + JSON‑LD helper.
 
-### Common scripts
+### Environment configuration
 
-- **`npm run dev`**: Start the dev server on port 8080.
-- **`npm run build`**: Production build.
-- **`npm run preview`**: Preview the production build locally.
-- **`npm run lint`**: Run ESLint.
-- **`npm run test`**: Run unit tests with Vitest.
+Copy `.env.example` to `.env` (and configure the same keys in Vercel):
 
-### Next steps
+- `VITE_SITE_URL` – Canonical site URL (e.g. `https://presidentialdigs.com`).
+- `VITE_SOCIAL_IMAGE_URL` – Absolute URL for social/OG share image.
+- `VITE_LEAD_API_BASE_URL` (optional) – External API base; if unset, `/api/leads` Vercel function is used.
+- `VITE_GA_MEASUREMENT_ID` (optional) – Google Analytics 4 measurement ID.
+- `VITE_GTM_CONTAINER_ID` (optional) – Google Tag Manager container ID.
 
-- Wire `LeadForm` to your real lead intake backend.
-- Add analytics (e.g., GA4, Plausible) in `index.html` or via a provider.
-- Replace placeholder content (phone numbers, stats, copy) with production values.
-- Add per-page SEO helpers if you need more granular control than the global `index.html` tags.
+### Local development
+
+```bash
+npm install
+npm run dev
+```
+
+The app runs at `http://localhost:8080` by default.
+
+### Production build
+
+```bash
+npm run build
+npm run preview
+```
+
+On Vercel, the project is deployed as a Vite SPA:
+
+- **Build command**: `npm run build`
+- **Output directory**: `dist`
+- **SPA rewrites**: configured in `vercel.json` so all client routes resolve to `index.html`.
+
+### Lead flow overview
+
+1. `LeadForm` validates input with `zod` and `react-hook-form`.
+2. `submitLead` in `src/lib/lead-api.ts` POSTs to `/api/leads` (or `VITE_LEAD_API_BASE_URL/api/leads`).
+3. `api/leads.js` normalizes and logs the lead payload and is ready to be connected to a CRM / email provider.
+
+### Analytics overview
+
+Analytics are managed via `src/lib/analytics.ts` and can be wired to GA4 and/or GTM using env vars. The app tracks:
+
+- Page views
+- Navigation clicks
+- Primary CTA clicks
+- Phone number clicks
+- Lead submission success and failure
+
+### SEO & sitemap
+
+- Page‑specific titles, descriptions, canonicals, OG/Twitter tags via `Seo` component.
+- JSON‑LD for Organization (home) and FAQPage (FAQ).
+- `public/sitemap.xml` and `public/robots.txt` configured for search indexing.
+
+### Contributing
+
+Changes should preserve the existing visual design language while improving content, performance, or maintainability. Before opening a PR:
+
+- Run `npm run lint` and `npm run test` where applicable.
+- Keep environment‑specific values in env vars, not hardcoded in components.

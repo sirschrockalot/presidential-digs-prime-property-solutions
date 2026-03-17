@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { trackCTA, trackNavClick } from "@/lib/analytics";
+import { trackCTA, trackNavClick, trackPhoneClick } from "@/lib/analytics";
 
 
 const navLinks = [
@@ -50,7 +50,11 @@ const Header = () => {
           </nav>
 
           <div className="hidden lg:flex items-center gap-5">
-            <a href="tel:+14144095086" className="flex items-center gap-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <a
+              href="tel:+14144095086"
+              className="flex items-center gap-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+              onClick={() => trackPhoneClick("header")}
+            >
               <Phone className="w-3.5 h-3.5" />
               414 409 5086
             </a>
@@ -71,7 +75,13 @@ const Header = () => {
             >
               Get Offer
             </Link>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="text-foreground p-1.5">
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="text-foreground p-1.5"
+              type="button"
+              aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileOpen}
+            >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
@@ -100,7 +110,11 @@ const Header = () => {
                     {link.label}
                   </Link>
                 ))}
-                <a href="tel:+14144095086" className="py-3.5 flex items-center gap-2 text-[15px] font-medium text-accent">
+                <a
+                  href="tel:+14144095086"
+                  className="py-3.5 flex items-center gap-2 text-[15px] font-medium text-accent"
+                  onClick={() => trackPhoneClick("header")}
+                >
                   <Phone className="w-4 h-4" /> 414 409 5086
                 </a>
               </nav>

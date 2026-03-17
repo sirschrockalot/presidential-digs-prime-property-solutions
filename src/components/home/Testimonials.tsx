@@ -1,7 +1,7 @@
 import AnimatedSection from "../AnimatedSection";
 import { MapPin, Clock } from "lucide-react";
 
-// TODO_PRODUCTION_TESTIMONIALS - replace these with real, approved testimonials and anonymized details from actual sellers
+// BUSINESS_APPROVAL_REQUIRED: replace or confirm these testimonials and recent closings against real, approved data.
 const acquisitions = [
   { city: "Austin, TX", days: 6, type: "Inherited Property" },
   { city: "Phoenix, AZ", days: 9, type: "Foreclosure Prevention" },
@@ -10,7 +10,7 @@ const acquisitions = [
   { city: "Dallas, TX", days: 5, type: "Bad Tenants" },
 ];
 
-// TODO_PRODUCTION_TESTIMONIALS - confirm quotes, names/initials, and locations align with your actual client stories and compliance requirements
+// BUSINESS_APPROVAL_REQUIRED: confirm quotes, names/initials, and locations align with actual client stories and compliance requirements.
 const testimonials = [
   { quote: "They treated us with respect during the hardest time of our lives. The process was seamless and fair.", name: "Maria S.", location: "Houston, TX", situation: "Inherited Property" },
   { quote: "After two failed listings with agents, Presidential Digs closed in 8 days. No repairs, no showings. Just done.", name: "James W.", location: "Atlanta, GA", situation: "Needed Repairs" },

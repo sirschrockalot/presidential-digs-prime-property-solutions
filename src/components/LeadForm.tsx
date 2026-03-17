@@ -1,19 +1,21 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle, Shield, Lock } from "lucide-react";
+import { CheckCircle, Lock } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { submitLead } from "@/lib/lead-api";
-import { trackLeadSubmitted } from "@/lib/analytics";
+import { trackLeadFailed, trackLeadSubmitted } from "@/lib/analytics";
 
 const leadSchema = z.object({
   name: z.string().min(2, "Please enter your full name."),
   address: z.string().min(5, "Please enter the full property address."),
   phone: z.string().min(7, "Please enter a valid phone number."),
   email: z.string().email("Please enter a valid email address."),
-  message: z.string().max(1000).optional(),
-  smsConsent: z.literal(true, { errorMap: () => ({ message: "You must agree to receive SMS messages." }) }),
+  message: z.string().max(1000, "Please keep your message under 1000 characters.").optional(),
+  smsConsent: z
+    .boolean()
+    .refine((value) => value, { message: "You must agree to receive SMS messages." }),
   honeypot: z.string().max(0).optional(),
 });
 
@@ -48,7 +50,7 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
       phone: "",
       email: "",
       message: "",
-      smsConsent: false as unknown as true,
+      smsConsent: false,
       honeypot: "",
     },
   });
@@ -76,8 +78,17 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
     } catch (error) {
       if (error instanceof Error) {
         setSubmitError(error.message);
+        trackLeadFailed({
+          source,
+          page: inferredPage,
+          error: error.message,
+        });
       } else {
         setSubmitError("Something went wrong while submitting your request.");
+        trackLeadFailed({
+          source,
+          page: inferredPage,
+        });
       }
     }
   };
@@ -89,16 +100,18 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`bg-card p-8 md:p-10 rounded-sm text-center ${variant === "hero" ? "shadow-[var(--shadow-xl)] border border-border" : ""} ${className}`}
+        role="status"
+        aria-live="polite"
       >
         <div className="w-14 h-14 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-5">
-          <CheckCircle className="w-7 h-7 text-success" />
+          <CheckCircle className="w-7 h-7 text-success" aria-hidden="true" />
         </div>
-        <h3 className="text-display text-2xl text-foreground mb-2">Request Received</h3>
+        <h3 className="text-display text-2xl text-foreground mb-2">Request received</h3>
         <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">
-          We'll reach out within 24 hours with your no-obligation cash offer.
+          Thank you for reaching out. We&apos;ll review your details and contact you within 24 hours with your no-obligation cash offer.
         </p>
         <div className="mt-8 pt-6 border-t border-border">
-          <h4 className="font-semibold text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">What Happens Next</h4>
+          <h4 className="font-semibold text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">What happens next</h4>
           <div className="space-y-3 text-left">
             {["We review your property details", "A specialist contacts you within 24 hours", "Receive your fair cash offer — no obligation"].map((step, i) => (
               <div key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
@@ -122,7 +135,12 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
           <p className="text-sm text-muted-foreground">Takes 60 seconds. Zero obligation.</p>
         </div>
       )}
-      <form onSubmit={handleSubmit(onSubmit)} className={`space-y-3 ${isFull ? "grid md:grid-cols-2 gap-3 space-y-0" : ""}`}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={`space-y-3 ${isFull ? "grid md:grid-cols-2 gap-3 space-y-0" : ""}`}
+        aria-busy={isSubmitting}
+        noValidate
+      >
         {/* Honeypot field for basic bot/spam protection */}
         <div className="hidden" aria-hidden="true">
           <label>
@@ -136,7 +154,10 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
           </label>
         </div>
         {submitError && (
-          <div className={`text-[11px] text-destructive bg-destructive/5 border border-destructive/30 rounded-sm px-3 py-2 ${isFull ? "md:col-span-2" : ""}`}>
+          <div
+            className={`text-[11px] text-destructive bg-destructive/5 border border-destructive/30 rounded-sm px-3 py-2 ${isFull ? "md:col-span-2" : ""}`}
+            role="alert"
+          >
             {submitError}
           </div>
         )}
@@ -144,37 +165,53 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
           type="text"
           placeholder="Full Name"
           className={`input-premium ${isFull ? "" : ""}`}
+          aria-invalid={!!errors.name}
+          aria-describedby={errors.name && !isFull ? "lead-name-error" : undefined}
           {...register("name")}
         />
         {errors.name && !isFull && (
-          <p className="text-[11px] text-destructive mt-0.5">{errors.name.message}</p>
+          <p id="lead-name-error" className="text-[11px] text-destructive mt-0.5">
+            {errors.name.message}
+          </p>
         )}
         <input
           type="text"
           placeholder="Property Address"
           className={`input-premium ${isFull ? "md:col-span-2" : ""}`}
+          aria-invalid={!!errors.address}
+          aria-describedby={errors.address && !isFull ? "lead-address-error" : undefined}
           {...register("address")}
         />
         {errors.address && !isFull && (
-          <p className="text-[11px] text-destructive mt-0.5">{errors.address.message}</p>
+          <p id="lead-address-error" className="text-[11px] text-destructive mt-0.5">
+            {errors.address.message}
+          </p>
         )}
         <input
           type="tel"
           placeholder="Phone Number"
           className="input-premium"
+          aria-invalid={!!errors.phone}
+          aria-describedby={errors.phone && !isFull ? "lead-phone-error" : undefined}
           {...register("phone")}
         />
         {errors.phone && !isFull && (
-          <p className="text-[11px] text-destructive mt-0.5">{errors.phone.message}</p>
+          <p id="lead-phone-error" className="text-[11px] text-destructive mt-0.5">
+            {errors.phone.message}
+          </p>
         )}
         <input
           type="email"
           placeholder="Email Address"
           className="input-premium"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email && !isFull ? "lead-email-error" : undefined}
           {...register("email")}
         />
         {errors.email && !isFull && (
-          <p className="text-[11px] text-destructive mt-0.5">{errors.email.message}</p>
+          <p id="lead-email-error" className="text-[11px] text-destructive mt-0.5">
+            {errors.email.message}
+          </p>
         )}
         {isFull && (
           <textarea
@@ -197,7 +234,9 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
           </label>
         </div>
         {errors.smsConsent && (
-          <p className={`text-[11px] text-destructive ${isFull ? "md:col-span-2" : ""}`}>{errors.smsConsent.message}</p>
+          <p className={`text-[11px] text-destructive ${isFull ? "md:col-span-2" : ""}`}>
+            {errors.smsConsent.message}
+          </p>
         )}
         <button
           type="submit"

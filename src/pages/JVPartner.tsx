@@ -62,8 +62,8 @@ const JVPartner = () => {
   });
 
   const onSubmit = async (values: JVFormValues) => {
-    // TODO: wire up to backend / email notification
-    console.log("JV submission:", values, "File:", fileName);
+    // NOTE: Integrate this handler with your JV intake workflow or CRM.
+    console.info("JV submission:", { ...values, fileName });
     setSubmitted(true);
     reset();
   };
