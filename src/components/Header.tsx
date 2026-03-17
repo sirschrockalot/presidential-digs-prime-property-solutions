@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackCTA, trackNavClick } from "@/lib/analytics";
+import logo from "@/assets/logo.jpg";
 
 const navLinks = [
   { label: "How It Works", href: "/how-it-works" },
