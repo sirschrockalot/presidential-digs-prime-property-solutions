@@ -18,6 +18,7 @@ const LocationPage = lazy(() => import("./pages/LocationPage.tsx"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.tsx"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService.tsx"));
 const SMSPolicy = lazy(() => import("./pages/SMSPolicy.tsx"));
+const JVPartner = lazy(() => import("./pages/JVPartner.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/sms-policy" element={<SMSPolicy />} />
+            <Route path="/jv" element={<JVPartner />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
