@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackCTA, trackNavClick } from "@/lib/analytics";
-import logo from "@/assets/logo.jpg";
+
 
 const navLinks = [
   { label: "How It Works", href: "/how-it-works" },
@@ -26,7 +26,10 @@ const Header = () => {
             className="flex items-center gap-2"
             onClick={() => trackNavClick("Logo", "/", "header")}
           >
-            <img src={logo} alt="Presidential Digs Real Estate" className="h-8 md:h-10 w-auto" />
+            <div className="w-7 h-7 md:w-8 md:h-8 bg-primary rounded-sm flex items-center justify-center">
+              <span className="text-primary-foreground font-serif text-sm md:text-base font-bold">P</span>
+            </div>
+            <span className="text-display text-lg md:text-xl text-foreground">Presidential Digs</span>
           </Link>
 
           <nav className="hidden lg:flex items-center gap-7">
