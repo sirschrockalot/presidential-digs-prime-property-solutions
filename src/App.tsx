@@ -15,6 +15,9 @@ const FAQPage = lazy(() => import("./pages/FAQPage.tsx"));
 const Contact = lazy(() => import("./pages/Contact.tsx"));
 const SituationPage = lazy(() => import("./pages/SituationPage.tsx"));
 const LocationPage = lazy(() => import("./pages/LocationPage.tsx"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.tsx"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService.tsx"));
+const SMSPolicy = lazy(() => import("./pages/SMSPolicy.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -45,6 +48,9 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/situations/:slug" element={<SituationPage />} />
             <Route path="/locations/:slug" element={<LocationPage />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/sms-policy" element={<SMSPolicy />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

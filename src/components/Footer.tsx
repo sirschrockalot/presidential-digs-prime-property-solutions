@@ -111,6 +111,13 @@ const Footer = () => (
           >
             Terms of Service
           </Link>
+          <Link
+            to="/sms-policy"
+            className="text-[11px] opacity-30 hover:opacity-60 transition-opacity"
+            onClick={() => trackNavClick("SMS Policy", "/sms-policy", "footer")}
+          >
+            SMS Policy
+          </Link>
         </div>
       </div>
     </div>
