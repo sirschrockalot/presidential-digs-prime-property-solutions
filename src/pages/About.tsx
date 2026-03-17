@@ -21,13 +21,13 @@ const team = [
     name: "Nicole Schrock",
     role: "CEO & Head Designer",
     bio: "I have lived in Waukesha my whole life. I have always had a knack for design and decorating. I love spending time with my family and especially my 3 boys.",
-    initials: "NS",
+    photo: nicolePhoto,
   },
   {
     name: "Joel Schrock",
     role: "President",
     bio: "While I grew up in Nevada, I have lived in Waukesha for the last 20 years. I have always had a passion for real estate and look for every chance I get to spread an entrepreneurial spirit to my children.",
-    initials: "JS",
+    photo: joelPhoto,
   },
 ];
 
