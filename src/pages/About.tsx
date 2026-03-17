@@ -2,72 +2,90 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
-import { Target, Heart, Shield } from "lucide-react";
+import { Heart, Star, Lightbulb, Sparkles, HandHeart, Users } from "lucide-react";
 import { Seo } from "../components/Seo";
 
 const values = [
-  { icon: Target, title: "Precision", desc: "Every offer is backed by data, market analysis, and local expertise. We don't guess — we calculate." },
-  { icon: Heart, title: "Empathy", desc: "We understand that selling a home during a transition is emotional. We treat every conversation with care and respect." },
-  { icon: Shield, title: "Integrity", desc: "No hidden fees, no bait-and-switch, no last-minute renegotiations. Our word is our contract." },
+  { icon: Heart, title: "Family First", desc: "Treat every customer like they are part of our family." },
+  { icon: Star, title: "Extraordinary Quality", desc: "Deliver extraordinary quality and design at every price point." },
+  { icon: Lightbulb, title: "Creative Solutions", desc: "Provide creative solutions to our customers' problems." },
+  { icon: Sparkles, title: "The WOW Factor", desc: "Provide the \"WOW\" factor to all customers." },
+  { icon: HandHeart, title: "Community", desc: "Give back to our community and support the veteran community." },
+];
+
+const team = [
+  {
+    name: "Nicole Schrock",
+    role: "CEO & Head Designer",
+    bio: "I have lived in Waukesha my whole life. I have always had a knack for design and decorating. I love spending time with my family and especially my 3 boys.",
+    initials: "NS",
+  },
+  {
+    name: "Joel Schrock",
+    role: "President",
+    bio: "While I grew up in Nevada, I have lived in Waukesha for the last 20 years. I have always had a passion for real estate and look for every chance I get to spread an entrepreneurial spirit to my children.",
+    initials: "JS",
+  },
 ];
 
 const About = () => (
   <>
     <Seo
-      title="About Presidential Digs | Professional Home Buyers"
-      description="Learn about Presidential Digs, our mission, and how we help homeowners in difficult situations sell quickly for a fair cash offer."
+      title="About Presidential Digs | Family-Owned Home Buyers"
+      description="Meet the Schrock family behind Presidential Digs. Learn about our mission to help homeowners with creative, compassionate real estate solutions."
       canonicalPath="/about"
     />
     <Header />
     <main>
+      {/* Hero */}
       <section className="section-padding bg-secondary">
         <div className="container-narrow">
           <AnimatedSection>
             <div className="max-w-3xl">
-              <span className="text-accent font-semibold tracking-widest uppercase text-xs mb-4 block">About Us</span>
+              <span className="label-tag mb-4 block">About Us</span>
               <h1 className="text-display text-3xl md:text-5xl text-foreground mb-6">
-                Built on trust. <span className="italic">Driven by certainty.</span>
+                A family business <span className="italic">built on passion.</span>
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                {/* TODO:COMPANY - refine this origin story to match your actual founding narrative */}
-                Presidential Digs was founded with a simple conviction: homeowners in difficult transitions deserve a dignified, professional option to sell their property — not a high-pressure pitch from a speculator.
+                Presidential Digs is a family-run business whose mission is to make and keep happy customers with every interaction.
               </p>
             </div>
           </AnimatedSection>
         </div>
       </section>
 
+      {/* Our Story */}
       <section className="section-padding bg-card">
         <div className="container-narrow">
           <AnimatedSection>
             <div className="max-w-3xl mx-auto mb-16">
               <h2 className="text-display text-2xl md:text-4xl text-foreground mb-6">Our Story</h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <div className="space-y-5 text-muted-foreground leading-relaxed">
                 <p>
-                  We started after witnessing too many homeowners get taken advantage of during some of the most stressful moments of their lives — navigating probate, facing foreclosure, or managing properties they couldn't afford to repair.
+                  My wife and I spent the last decade working in corporate America — building careers, raising our three children, and doing what we thought was expected of us. Then a sudden death in our family gave us the clarity we needed to follow our passions.
                 </p>
                 <p>
-                  The real estate industry offered two extremes: the traditional agent process (slow, expensive, uncertain) or the "cash for houses" operator (aggressive, lowball, unreliable). We believed there was room for a third option — one that combined institutional-grade professionalism with genuine human compassion.
+                  Life is too short to not explore your passions. With the full support of our three children, we embarked on a journey that has allowed us to meet incredible people and help our customers achieve happiness through creative real estate solutions.
                 </p>
                 <p>
-                  {/* TODO:STATS - confirm families served, coverage, and average days to close before publishing these claims */}
-                  Today, we've helped hundreds of families across multiple states find simple, fair exits from complicated property situations. Our average closing time is 8.4 days. Our seller satisfaction rating speaks for itself.
+                  What started as a leap of faith has grown into a company we're truly proud of — one where every customer is treated like family and every project is an opportunity to make a real difference in someone's life.
                 </p>
               </div>
             </div>
           </AnimatedSection>
 
+          {/* Values */}
           <AnimatedSection>
             <div className="text-center mb-10">
               <h2 className="text-display text-2xl md:text-4xl text-foreground">Our Values</h2>
             </div>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {values.map((v, i) => (
-              <AnimatedSection key={v.title} delay={i * 0.1}>
-                <div className="p-8 bg-secondary rounded-sm text-center">
-                  <v.icon className="w-8 h-8 text-accent mx-auto mb-4" />
+              <AnimatedSection key={v.title} delay={i * 0.08}>
+                <div className="p-7 bg-secondary rounded-sm h-full">
+                  <v.icon className="w-7 h-7 text-accent mb-4" />
                   <h3 className="font-semibold text-foreground mb-2">{v.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
                 </div>
@@ -77,11 +95,38 @@ const About = () => (
         </div>
       </section>
 
+      {/* Team */}
       <section className="section-padding bg-secondary">
+        <div className="container-narrow">
+          <AnimatedSection>
+            <div className="text-center mb-12">
+              <span className="label-tag mb-4 block">Meet the Team</span>
+              <h2 className="text-display text-2xl md:text-4xl text-foreground">The People Behind Presidential Digs</h2>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            {team.map((member, i) => (
+              <AnimatedSection key={member.name} delay={i * 0.12}>
+                <div className="bg-card rounded-sm p-8 border border-border h-full">
+                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-5">
+                    <span className="text-primary-foreground font-mono font-bold text-lg tracking-tight">{member.initials}</span>
+                  </div>
+                  <h3 className="text-display text-xl text-foreground mb-1">{member.name}</h3>
+                  <span className="text-accent text-xs font-semibold tracking-[0.1em] uppercase block mb-4">{member.role}</span>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="section-padding bg-card">
         <div className="container-narrow text-center">
           <AnimatedSection>
             <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-              {/* TODO:STATS - keep these in sync with your verified company metrics */}
               {[
                 { num: "500+", label: "Homes Purchased" },
                 { num: "8.4", label: "Avg. Days to Close" },
