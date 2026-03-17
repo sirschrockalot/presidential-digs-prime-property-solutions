@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import LeadForm from "../LeadForm";
 
+// TODO:STATS - replace these with verified, up-to-date company metrics
 const stats = [
   { value: "500+", label: "Homes Purchased" },
   { value: "8.4", label: "Avg. Days to Close" },
@@ -30,6 +31,7 @@ const HeroSection = () => (
             className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-foreground/10 rounded-sm mb-6 md:mb-8"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+            {/* TODO:COMPANY - confirm tagline and founding year */}
             <span className="text-primary-foreground/70 text-xs font-semibold tracking-[0.15em] uppercase">Trusted Nationwide · Est. 2018</span>
           </motion.div>
 

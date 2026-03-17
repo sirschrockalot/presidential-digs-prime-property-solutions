@@ -5,19 +5,21 @@ import LeadForm from "../components/LeadForm";
 import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
 import { MapPin, Check } from "lucide-react";
+import { Seo } from "../components/Seo";
 
+// TODO:SERVICE_AREAS - keep this map aligned with `ServiceAreas` and your live markets
 const locationData: Record<string, {
   name: string;
   type: "state" | "city";
   cities?: string[];
   state?: string;
 }> = {
-  "texas": { name: "Texas", type: "state", cities: ["Houston", "Dallas", "Austin", "San Antonio", "Fort Worth"] },
+  "wisconsin": { name: "Wisconsin", type: "state", cities: ["Milwaukee", "Madison", "Green Bay", "Kenosha"] },
   "georgia": { name: "Georgia", type: "state", cities: ["Atlanta", "Savannah", "Augusta", "Macon"] },
-  "arizona": { name: "Arizona", type: "state", cities: ["Phoenix", "Tucson", "Mesa", "Scottsdale"] },
+  "tennessee": { name: "Tennessee", type: "state", cities: ["Nashville", "Memphis", "Knoxville", "Chattanooga"] },
+  "ohio": { name: "Ohio", type: "state", cities: ["Columbus", "Cleveland", "Cincinnati", "Toledo"] },
   "north-carolina": { name: "North Carolina", type: "state", cities: ["Charlotte", "Raleigh", "Greensboro", "Durham"] },
   "florida": { name: "Florida", type: "state", cities: ["Tampa", "Orlando", "Jacksonville", "Miami"] },
-  "tennessee": { name: "Tennessee", type: "state", cities: ["Nashville", "Memphis", "Knoxville", "Chattanooga"] },
 };
 
 const situations = [
@@ -31,10 +33,18 @@ const situations = [
 
 const LocationPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const data = locationData[slug || ""] || locationData["texas"];
+  const data = locationData[slug || ""] || locationData["wisconsin"];
+  const effectiveSlug = slug || "wisconsin";
+  const pageTitle = `Sell Your House Fast in ${data.name} | Presidential Digs`;
+  const description = `Get a fair cash offer for your home in ${data.name}. We buy houses as-is with no repairs, fees, or showings required.`;
 
   return (
     <>
+      <Seo
+        title={pageTitle}
+        description={description}
+        canonicalPath={`/locations/${effectiveSlug}`}
+      />
       <Header />
       <main>
         <section className="section-padding bg-secondary">

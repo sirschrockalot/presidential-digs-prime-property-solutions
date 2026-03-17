@@ -5,6 +5,7 @@ import LeadForm from "../components/LeadForm";
 import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
 import { Home, Gavel, UserX, Wrench, Building, Key, Check, ArrowRight } from "lucide-react";
+import { Seo } from "../components/Seo";
 
 const situationData: Record<string, {
   icon: typeof Home;
@@ -170,9 +171,17 @@ const situationData: Record<string, {
 const SituationPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const data = situationData[slug || ""] || situationData["inherited-property"];
+  const effectiveSlug = slug || "inherited-property";
+  const pageTitle = `${data.title} | Sell Your House Fast | Presidential Digs`;
+  const description = data.description;
 
   return (
     <>
+      <Seo
+        title={pageTitle}
+        description={description}
+        canonicalPath={`/situations/${effectiveSlug}`}
+      />
       <Header />
       <main>
         <section className="section-padding bg-secondary">

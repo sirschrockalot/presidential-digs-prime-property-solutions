@@ -2,13 +2,14 @@ import { Link } from "react-router-dom";
 import AnimatedSection from "../AnimatedSection";
 import { MapPin } from "lucide-react";
 
+// TODO:SERVICE_AREAS - keep this list in sync with your actual active markets
 const states = [
-  { name: "Texas", slug: "texas", cities: ["Houston", "Dallas", "Austin", "San Antonio"] },
+  { name: "Wisconsin", slug: "wisconsin", cities: ["Milwaukee", "Madison", "Green Bay"] },
   { name: "Georgia", slug: "georgia", cities: ["Atlanta", "Savannah", "Augusta"] },
-  { name: "Arizona", slug: "arizona", cities: ["Phoenix", "Tucson", "Mesa"] },
+  { name: "Tennessee", slug: "tennessee", cities: ["Nashville", "Memphis", "Knoxville"] },
+  { name: "Ohio", slug: "ohio", cities: ["Columbus", "Cleveland", "Cincinnati"] },
   { name: "North Carolina", slug: "north-carolina", cities: ["Charlotte", "Raleigh", "Greensboro"] },
   { name: "Florida", slug: "florida", cities: ["Tampa", "Orlando", "Jacksonville"] },
-  { name: "Tennessee", slug: "tennessee", cities: ["Nashville", "Memphis", "Knoxville"] },
 ];
 
 const ServiceAreas = () => (

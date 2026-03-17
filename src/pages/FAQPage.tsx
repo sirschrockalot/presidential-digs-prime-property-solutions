@@ -5,6 +5,7 @@ import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Seo } from "../components/Seo";
 
 const categories = [
   {
@@ -57,6 +58,11 @@ const FAQPage = () => {
 
   return (
     <>
+      <Seo
+        title="FAQ | Selling Your House to Presidential Digs"
+        description="Get clear answers to the most common questions about selling your house for cash to Presidential Digs — process, pricing, timelines, and more."
+        canonicalPath="/faq"
+      />
       <Header />
       <main>
         <section className="section-padding bg-secondary">

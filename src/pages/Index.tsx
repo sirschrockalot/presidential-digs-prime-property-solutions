@@ -1,3 +1,4 @@
+import { Seo } from "../components/Seo";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HeroSection from "../components/home/HeroSection";
@@ -12,6 +13,11 @@ import FinalCTA from "../components/home/FinalCTA";
 
 const Index = () => (
   <>
+    <Seo
+      title="Presidential Digs | Sell Your House Fast for Cash"
+      description="Sell your house quickly for a fair cash offer with no repairs, fees, or showings. Presidential Digs gives motivated sellers a dignified, professional way to move on."
+      canonicalPath="/"
+    />
     <Header />
     <main>
       <HeroSection />

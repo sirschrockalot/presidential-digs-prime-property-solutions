@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import AnimatedSection from "../AnimatedSection";
 import { ArrowRight } from "lucide-react";
+import { trackCTA } from "@/lib/analytics";
 
 const FinalCTA = () => (
   <section className="relative overflow-hidden">
@@ -26,14 +27,15 @@ const FinalCTA = () => (
               <Link
                 to="/sell-your-house"
                 className="btn-accent inline-flex items-center justify-center gap-2 px-8 py-4"
+                onClick={() => trackCTA("Get My Fair Offer", "final-cta-primary", "/sell-your-house")}
               >
                 Get My Fair Offer <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="tel:+15551234567"
+                href="tel:+14144095086"
                 className="inline-flex items-center justify-center border border-primary-foreground/15 text-primary-foreground/80 px-8 py-4 font-semibold text-[13px] rounded-sm hover:bg-primary-foreground/5 transition-colors duration-300"
               >
-                Call (555) 123-4567
+                Call 414 409 5086
               </a>
             </div>
           </div>

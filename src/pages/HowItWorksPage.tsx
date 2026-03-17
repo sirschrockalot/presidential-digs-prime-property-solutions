@@ -3,9 +3,11 @@ import Footer from "../components/Footer";
 import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
 import { Send, FileSearch, Banknote, Handshake } from "lucide-react";
+import { Seo } from "../components/Seo";
 
+// TODO:PROCESS - verify these timelines and privacy commitments against your actual operational process and compliance standards
 const steps = [
-  { num: "01", icon: Send, title: "Submit Your Property", desc: "Fill out our simple form with your property address and basic details. It takes less than 60 seconds and carries zero obligation.", detail: "We never share your information. Your privacy is guaranteed." },
+  { num: "01", icon: Send, title: "Submit Your Property", desc: "Fill out our simple form with your property address and basic details. It takes less than 60 seconds and carries zero obligation.", detail: "We never share your information outside of our team or trusted partners without your consent." },
   { num: "02", icon: FileSearch, title: "Receive Your Offer", desc: "Our team reviews comparable sales data, property condition, and local market dynamics to formulate a fair, transparent cash offer.", detail: "You'll typically receive your offer within 24 hours of submission." },
   { num: "03", icon: Handshake, title: "Review & Accept", desc: "Review your offer at your own pace. Ask questions, request clarifications. There's no pressure and no expiration date on our offers.", detail: "We encourage you to compare our offer with other options." },
   { num: "04", icon: Banknote, title: "Close & Get Paid", desc: "Choose your closing date. We handle all paperwork, pay closing costs, and deposit cash directly into your account.", detail: "Average closing time: 8.4 days. You choose the timeline." },
@@ -13,6 +15,11 @@ const steps = [
 
 const HowItWorksPage = () => (
   <>
+    <Seo
+      title="How It Works | Presidential Digs Home Selling Process"
+      description="See how the Presidential Digs cash offer process works from first contact to closing. Transparent steps, clear timelines, and no hidden fees."
+      canonicalPath="/how-it-works"
+    />
     <Header />
     <main>
       <section className="section-padding bg-secondary">

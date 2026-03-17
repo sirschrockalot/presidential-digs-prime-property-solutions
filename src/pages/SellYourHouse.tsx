@@ -4,6 +4,7 @@ import LeadForm from "../components/LeadForm";
 import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
 import { Check, X } from "lucide-react";
+import { Seo } from "../components/Seo";
 
 const comparisons = [
   { feature: "Commission Fees", agent: "5–6% of sale price", us: "$0" },
@@ -16,6 +17,11 @@ const comparisons = [
 
 const SellYourHouse = () => (
   <>
+    <Seo
+      title="Sell Your House Fast | Presidential Digs"
+      description="Skip repairs, showings, and months of uncertainty. Get a fair cash offer for your house and close on your schedule with Presidential Digs."
+      canonicalPath="/sell-your-house"
+    />
     <Header />
     <main>
       <section className="section-padding bg-secondary">

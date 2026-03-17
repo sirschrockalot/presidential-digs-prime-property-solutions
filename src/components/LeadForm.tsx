@@ -1,23 +1,79 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, Shield, Lock } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { submitLead } from "@/lib/lead-api";
+import { trackLeadSubmitted } from "@/lib/analytics";
+
+const leadSchema = z.object({
+  name: z.string().min(2, "Please enter your full name."),
+  address: z.string().min(5, "Please enter the full property address."),
+  phone: z.string().min(7, "Please enter a valid phone number."),
+  email: z.string().email("Please enter a valid email address."),
+  message: z.string().max(1000).optional(),
+});
+
+type LeadFormValues = z.infer<typeof leadSchema>;
 
 interface LeadFormProps {
   variant?: "hero" | "inline" | "full";
   className?: string;
+  source?: string;
+  page?: string;
 }
 
-const LeadForm = ({ variant = "hero", className = "" }: LeadFormProps) => {
+const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormProps) => {
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    address: "",
-    phone: "",
-    email: "",
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const inferredPage = useMemo(
+    () => page || (typeof window !== "undefined" ? window.location.pathname : undefined),
+    [page],
+  );
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<LeadFormValues>({
+    resolver: zodResolver(leadSchema),
+    defaultValues: {
+      name: "",
+      address: "",
+      phone: "",
+      email: "",
+      message: "",
+    },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
+  const onSubmit = async (values: LeadFormValues) => {
+    setSubmitError(null);
+    try {
+      await submitLead({
+        name: values.name,
+        phone: values.phone,
+        email: values.email,
+        address: values.address,
+        message: values.message,
+        source,
+        page: inferredPage,
+      });
+      trackLeadSubmitted({
+        source,
+        page: inferredPage,
+      });
+      setSubmitted(true);
+      reset();
+    } catch (error) {
+      if (error instanceof Error) {
+        setSubmitError(error.message);
+      } else {
+        setSubmitError("Something went wrong while submitting your request.");
+      }
+    }
   };
 
   if (submitted) {
@@ -60,36 +116,61 @@ const LeadForm = ({ variant = "hero", className = "" }: LeadFormProps) => {
           <p className="text-sm text-muted-foreground">Takes 60 seconds. Zero obligation.</p>
         </div>
       )}
-      <form onSubmit={handleSubmit} className={`space-y-3 ${isFull ? "grid md:grid-cols-2 gap-3 space-y-0" : ""}`}>
+      <form onSubmit={handleSubmit(onSubmit)} className={`space-y-3 ${isFull ? "grid md:grid-cols-2 gap-3 space-y-0" : ""}`}>
+        {submitError && (
+          <div className={`text-[11px] text-destructive bg-destructive/5 border border-destructive/30 rounded-sm px-3 py-2 ${isFull ? "md:col-span-2" : ""}`}>
+            {submitError}
+          </div>
+        )}
         <input
           type="text"
-          required
-          placeholder="Property Address"
-          value={formData.address}
-          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-          className={`input-premium ${isFull ? "md:col-span-2" : ""}`}
+          placeholder="Full Name"
+          className={`input-premium ${isFull ? "" : ""}`}
+          {...register("name")}
         />
+        {errors.name && !isFull && (
+          <p className="text-[11px] text-destructive mt-0.5">{errors.name.message}</p>
+        )}
+        <input
+          type="text"
+          placeholder="Property Address"
+          className={`input-premium ${isFull ? "md:col-span-2" : ""}`}
+          {...register("address")}
+        />
+        {errors.address && !isFull && (
+          <p className="text-[11px] text-destructive mt-0.5">{errors.address.message}</p>
+        )}
         <input
           type="tel"
-          required
           placeholder="Phone Number"
-          value={formData.phone}
-          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           className="input-premium"
+          {...register("phone")}
         />
+        {errors.phone && !isFull && (
+          <p className="text-[11px] text-destructive mt-0.5">{errors.phone.message}</p>
+        )}
         <input
           type="email"
-          required
           placeholder="Email Address"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           className="input-premium"
+          {...register("email")}
         />
+        {errors.email && !isFull && (
+          <p className="text-[11px] text-destructive mt-0.5">{errors.email.message}</p>
+        )}
+        {isFull && (
+          <textarea
+            placeholder="Anything else we should know?"
+            className="input-premium md:col-span-2 min-h-[80px] resize-none"
+            {...register("message")}
+          />
+        )}
         <button
           type="submit"
           className={`btn-accent w-full h-13 ${isFull ? "md:col-span-2" : ""}`}
+          disabled={isSubmitting}
         >
-          Get My Fair Offer →
+          {isSubmitting ? "Submitting..." : "Get My Fair Offer →"}
         </button>
       </form>
       <div className="flex items-center justify-center gap-1.5 mt-4">

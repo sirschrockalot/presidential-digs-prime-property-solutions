@@ -3,9 +3,15 @@ import Footer from "../components/Footer";
 import LeadForm from "../components/LeadForm";
 import AnimatedSection from "../components/AnimatedSection";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Seo } from "../components/Seo";
 
 const Contact = () => (
   <>
+    <Seo
+      title="Contact Presidential Digs | Talk to a Home Buying Specialist"
+      description="Contact Presidential Digs to discuss your property, request a cash offer, or get answers about selling your house quickly."
+      canonicalPath="/contact"
+    />
     <Header />
     <main>
       <section className="section-padding bg-secondary">
@@ -23,9 +29,11 @@ const Contact = () => (
 
                 <div className="space-y-6">
                   {[
-                    { icon: Phone, label: "Phone", value: "(555) 123-4567", href: "tel:+15551234567" },
-                    { icon: Mail, label: "Email", value: "info@presidentialdigs.com", href: "mailto:info@presidentialdigs.com" },
-                    { icon: MapPin, label: "Office", value: "Serving homeowners nationwide" },
+                    { icon: Phone, label: "Phone", value: "414 409 5086", href: "tel:+14144095086" },
+                    { icon: Mail, label: "Email", value: "deals@presidentialdigs.com", href: "mailto:deals@presidentialdigs.com" },
+                    // TODO:CONTENT - confirm how you want to describe your primary office / footprint
+                    { icon: MapPin, label: "Office", value: "Serving motivated home sellers across key U.S. markets" },
+                    // TODO:CONTENT - confirm your standard availability / call center hours
                     { icon: Clock, label: "Hours", value: "Mon–Fri 8am–7pm, Sat 9am–5pm" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-start gap-4">

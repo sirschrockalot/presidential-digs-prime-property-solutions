@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
 import { Target, Heart, Shield } from "lucide-react";
+import { Seo } from "../components/Seo";
 
 const values = [
   { icon: Target, title: "Precision", desc: "Every offer is backed by data, market analysis, and local expertise. We don't guess — we calculate." },
@@ -12,6 +13,11 @@ const values = [
 
 const About = () => (
   <>
+    <Seo
+      title="About Presidential Digs | Professional Home Buyers"
+      description="Learn about Presidential Digs, our mission, and how we help homeowners in difficult situations sell quickly for a fair cash offer."
+      canonicalPath="/about"
+    />
     <Header />
     <main>
       <section className="section-padding bg-secondary">
@@ -23,6 +29,7 @@ const About = () => (
                 Built on trust. <span className="italic">Driven by certainty.</span>
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed">
+                {/* TODO:COMPANY - refine this origin story to match your actual founding narrative */}
                 Presidential Digs was founded with a simple conviction: homeowners in difficult transitions deserve a dignified, professional option to sell their property — not a high-pressure pitch from a speculator.
               </p>
             </div>
@@ -43,6 +50,7 @@ const About = () => (
                   The real estate industry offered two extremes: the traditional agent process (slow, expensive, uncertain) or the "cash for houses" operator (aggressive, lowball, unreliable). We believed there was room for a third option — one that combined institutional-grade professionalism with genuine human compassion.
                 </p>
                 <p>
+                  {/* TODO:STATS - confirm families served, coverage, and average days to close before publishing these claims */}
                   Today, we've helped hundreds of families across multiple states find simple, fair exits from complicated property situations. Our average closing time is 8.4 days. Our seller satisfaction rating speaks for itself.
                 </p>
               </div>
@@ -73,6 +81,7 @@ const About = () => (
         <div className="container-narrow text-center">
           <AnimatedSection>
             <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+              {/* TODO:STATS - keep these in sync with your verified company metrics */}
               {[
                 { num: "500+", label: "Homes Purchased" },
                 { num: "8.4", label: "Avg. Days to Close" },

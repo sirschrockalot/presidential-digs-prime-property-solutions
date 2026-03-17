@@ -1,9 +1,10 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import { trackPageView } from "@/lib/analytics";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -17,6 +18,16 @@ const LocationPage = lazy(() => import("./pages/LocationPage.tsx"));
 
 const queryClient = new QueryClient();
 
+const AnalyticsRouterListener = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    trackPageView(location.pathname + location.search);
+  }, [location.pathname, location.search]);
+
+  return null;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -24,6 +35,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
+          <AnalyticsRouterListener />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/sell-your-house" element={<SellYourHouse />} />
