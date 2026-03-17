@@ -13,6 +13,7 @@ const leadSchema = z.object({
   phone: z.string().min(7, "Please enter a valid phone number."),
   email: z.string().email("Please enter a valid email address."),
   message: z.string().max(1000).optional(),
+  smsConsent: z.literal(true, { errorMap: () => ({ message: "You must agree to receive SMS messages." }) }),
 });
 
 type LeadFormValues = z.infer<typeof leadSchema>;
