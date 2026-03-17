@@ -4,7 +4,7 @@ const items = [
   { value: "$0.00", label: "Fees Paid by Seller" },
   { value: "Any", label: "Property Condition" },
   { value: "7 Days", label: "Fastest Closing" },
-  { value: "A+", label: "BBB Rating" },
+  { value: "A+", label: "BBB Rating", href: "https://www.bbb.org/us/wi/waukesha/profile/real-estate-services/presidential-digs-real-estate-llc-0694-1000061630" },
 ];
 
 const TrustBar = () => (
@@ -12,12 +12,23 @@ const TrustBar = () => (
     <div className="container-narrow px-5 md:px-6 py-8 md:py-10">
       <AnimatedSection>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 md:divide-x md:divide-border">
-          {items.map((item) => (
-            <div key={item.label} className="md:px-8 first:md:pl-0 last:md:pr-0 text-center md:text-left">
-              <span className="block font-mono text-lg md:text-xl font-bold text-foreground tabular-nums tracking-tight">{item.value}</span>
-              <span className="text-xs text-muted-foreground font-medium mt-0.5 block">{item.label}</span>
-            </div>
-          ))}
+          {items.map((item) => {
+            const content = (
+              <>
+                <span className="block font-mono text-lg md:text-xl font-bold text-foreground tabular-nums tracking-tight">{item.value}</span>
+                <span className="text-xs text-muted-foreground font-medium mt-0.5 block">{item.label}</span>
+              </>
+            );
+            return (
+              <div key={item.label} className="md:px-8 first:md:pl-0 last:md:pr-0 text-center md:text-left">
+                {item.href ? (
+                  <a href={item.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                    {content}
+                  </a>
+                ) : content}
+              </div>
+            );
+          })}
         </div>
       </AnimatedSection>
     </div>
