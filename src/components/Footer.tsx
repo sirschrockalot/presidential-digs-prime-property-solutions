@@ -1,13 +1,8 @@
 import { Link } from "react-router-dom";
 import { trackNavClick } from "@/lib/analytics";
-import logo from "@/assets/logo.jpg";
 
 const Footer = () => (
   <footer className="bg-foreground text-background relative overflow-hidden">
-    {/* Subtle watermark */}
-    <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 pointer-events-none">
-      <img src={logo} alt="" className="w-[500px] md:w-[700px] opacity-[0.06] select-none brightness-200" draggable={false} />
-    </div>
     <div className="container-narrow px-5 md:px-6 py-14 md:py-20">
       <div className="grid md:grid-cols-4 gap-10 md:gap-8">
         <div className="md:col-span-1">
