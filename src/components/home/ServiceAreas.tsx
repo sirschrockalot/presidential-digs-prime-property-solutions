@@ -12,30 +12,37 @@ const states = [
 ];
 
 const ServiceAreas = () => (
-  <section className="section-padding bg-secondary">
+  <section className="section-padding bg-background">
     <div className="container-narrow">
       <AnimatedSection>
-        <div className="text-center mb-14">
-          <span className="text-accent font-semibold tracking-widest uppercase text-xs mb-3 block">Where We Operate</span>
-          <h2 className="text-display text-3xl md:text-5xl text-foreground">Service Areas</h2>
-          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
-            We buy houses across the country. Our local specialists understand your market.
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 md:mb-12 gap-4">
+          <div>
+            <span className="label-tag">Coverage</span>
+            <h2 className="text-display text-3xl md:text-[3.25rem] text-foreground">
+              Where we operate.
+            </h2>
+          </div>
+          <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
+            Local specialists in every market who understand your real estate dynamics.
           </p>
         </div>
       </AnimatedSection>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {states.map((state, i) => (
-          <AnimatedSection key={state.slug} delay={i * 0.06}>
+          <AnimatedSection key={state.slug} delay={i * 0.05}>
             <Link
               to={`/locations/${state.slug}`}
-              className="block p-6 bg-card rounded-sm gold-border-hover card-lift group"
+              className="flex items-center justify-between p-5 bg-card rounded-sm gold-border-hover group"
             >
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-accent" />
-                <h3 className="font-semibold text-foreground">{state.name}</h3>
+                <div>
+                  <h3 className="font-semibold text-foreground text-[15px]">{state.name}</h3>
+                  <p className="text-xs text-muted-foreground mt-0.5">{state.cities.join(" · ")}</p>
+                </div>
               </div>
-              <p className="text-sm text-muted-foreground">{state.cities.join(" · ")}</p>
+              <span className="text-muted-foreground/30 group-hover:text-accent transition-colors duration-300 text-lg">→</span>
             </Link>
           </AnimatedSection>
         ))}
