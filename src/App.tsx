@@ -15,6 +15,9 @@ const FAQPage = lazy(() => import("./pages/FAQPage.tsx"));
 const Contact = lazy(() => import("./pages/Contact.tsx"));
 const SituationPage = lazy(() => import("./pages/SituationPage.tsx"));
 const LocationPage = lazy(() => import("./pages/LocationPage.tsx"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.tsx"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService.tsx"));
+const SMSPolicy = lazy(() => import("./pages/SMSPolicy.tsx"));
 
 const queryClient = new QueryClient();
 
