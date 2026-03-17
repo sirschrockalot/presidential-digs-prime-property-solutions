@@ -4,6 +4,7 @@ import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
 import { Heart, Star, Lightbulb, Sparkles, HandHeart, Users } from "lucide-react";
 import { Seo } from "../components/Seo";
+import familyPhoto from "@/assets/family.jpg";
 
 const values = [
   { icon: Heart, title: "Family First", desc: "Treat every customer like they are part of our family." },
@@ -58,18 +59,28 @@ const About = () => (
       <section className="section-padding bg-card">
         <div className="container-narrow">
           <AnimatedSection>
-            <div className="max-w-3xl mx-auto mb-16">
-              <h2 className="text-display text-2xl md:text-4xl text-foreground mb-6">Our Story</h2>
-              <div className="space-y-5 text-muted-foreground leading-relaxed">
-                <p>
-                  My wife and I spent the last decade working in corporate America — building careers, raising our three children, and doing what we thought was expected of us. Then a sudden death in our family gave us the clarity we needed to follow our passions.
-                </p>
-                <p>
-                  Life is too short to not explore your passions. With the full support of our three children, we embarked on a journey that has allowed us to meet incredible people and help our customers achieve happiness through creative real estate solutions.
-                </p>
-                <p>
-                  What started as a leap of faith has grown into a company we're truly proud of — one where every customer is treated like family and every project is an opportunity to make a real difference in someone's life.
-                </p>
+            <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center mb-16">
+              <div>
+                <h2 className="text-display text-2xl md:text-4xl text-foreground mb-6">Our Story</h2>
+                <div className="space-y-5 text-muted-foreground leading-relaxed">
+                  <p>
+                    My wife and I spent the last decade working in corporate America — building careers, raising our three children, and doing what we thought was expected of us. Then a sudden death in our family gave us the clarity we needed to follow our passions.
+                  </p>
+                  <p>
+                    Life is too short to not explore your passions. With the full support of our three children, we embarked on a journey that has allowed us to meet incredible people and help our customers achieve happiness through creative real estate solutions.
+                  </p>
+                  <p>
+                    What started as a leap of faith has grown into a company we're truly proud of — one where every customer is treated like family and every project is an opportunity to make a real difference in someone's life.
+                  </p>
+                </div>
+              </div>
+              <div className="rounded-sm overflow-hidden border border-border shadow-[var(--shadow-lg)]">
+                <img
+                  src={familyPhoto}
+                  alt="The Schrock family — Nicole, Joel, and their three boys"
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
               </div>
             </div>
           </AnimatedSection>
