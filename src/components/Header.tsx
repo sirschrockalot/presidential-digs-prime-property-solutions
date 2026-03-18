@@ -39,7 +39,7 @@ const Header = () => {
                 to={link.href}
                 onClick={() => trackNavClick(link.label, link.href, "header")}
                 className={`text-[13px] font-medium transition-colors duration-200 ${
-                  location.pathname === link.href
+                  location.pathname === link.href || location.pathname.startsWith(link.href + "/")
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
