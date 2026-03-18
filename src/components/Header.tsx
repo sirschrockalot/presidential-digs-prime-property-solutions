@@ -8,7 +8,7 @@ import { trackCTA, trackNavClick, trackPhoneClick } from "@/lib/analytics";
 const navLinks = [
   { label: "How It Works", href: "/how-it-works" },
   { label: "About", href: "/about" },
-  { label: "Situations", href: "/situations/inherited-property" },
+  { label: "Situations", href: "/situations" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
@@ -39,7 +39,7 @@ const Header = () => {
                 to={link.href}
                 onClick={() => trackNavClick(link.label, link.href, "header")}
                 className={`text-[13px] font-medium transition-colors duration-200 ${
-                  location.pathname === link.href
+                  location.pathname === link.href || location.pathname.startsWith(link.href + "/")
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
