@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Home, Gavel, UserX, Wrench, Building, Key } from "lucide-react";
+import { Home, Gavel, UserX, Wrench, Building, Key, HeartCrack, Plane, Receipt, ArrowDownCircle, BriefcaseBusiness, UserMinus } from "lucide-react";
 import AnimatedSection from "../AnimatedSection";
 
 const situations = [
