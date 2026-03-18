@@ -32,7 +32,7 @@ const HeroSection = () => (
           >
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             {/* BUSINESS_APPROVAL_REQUIRED: confirm tagline wording and founding year. */}
-            <span className="text-primary-foreground/70 text-xs font-semibold tracking-[0.15em] uppercase">Trusted Nationwide · Est. 2018</span>
+            <span className="text-primary-foreground/70 text-xs font-semibold tracking-[0.15em] uppercase">Trusted Nationwide · Est. 2021</span>
           </motion.div>
 
           <h1 className="text-display text-[2.25rem] md:text-6xl lg:text-[4.5rem] text-primary-foreground mb-5 md:mb-7">
