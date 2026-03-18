@@ -36,10 +36,9 @@ const HeroSection = () => (
           </motion.div>
 
           <h1 className="text-display text-[2.25rem] md:text-6xl lg:text-[4.5rem] text-primary-foreground mb-5 md:mb-7">
-            A dignified exit{" "}
+            Your Home. Your Timeline.{" "}
             <br className="hidden md:block" />
-            from your{" "}
-            <span className="italic text-accent">property.</span>
+            Our <span className="italic text-accent">Cash Offer.</span>
           </h1>
           
           <p className="text-base md:text-lg text-primary-foreground/60 max-w-lg mb-8 md:mb-12 leading-relaxed">
