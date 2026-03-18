@@ -2,8 +2,10 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
-import { Heart, Star, Lightbulb, Sparkles, HandHeart, Users } from "lucide-react";
+import { Heart, Star, Lightbulb, Sparkles, HandHeart } from "lucide-react";
 import { Seo } from "../components/Seo";
+import BreadcrumbNav, { breadcrumbJsonLd } from "../components/BreadcrumbNav";
+import PageHero from "../components/PageHero";
 import familyPhoto from "@/assets/family.jpg";
 import nicolePhoto from "@/assets/nicole.jpg";
 import joelPhoto from "@/assets/joel.jpg";
@@ -31,31 +33,35 @@ const team = [
   },
 ];
 
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "About" },
+];
+
 const About = () => (
   <>
     <Seo
       title="About Presidential Digs | Family-Owned Home Buyers"
       description="Meet the Schrock family behind Presidential Digs. Learn about our mission to help homeowners with creative, compassionate real estate solutions."
       canonicalPath="/about"
+      jsonLd={breadcrumbJsonLd(breadcrumbs)}
     />
     <Header />
     <main>
-      {/* Hero */}
-      <section className="section-padding bg-secondary">
-        <div className="container-narrow">
-          <AnimatedSection>
-            <div className="max-w-3xl">
-              <span className="label-tag mb-4 block">About Us</span>
-              <h1 className="text-display text-3xl md:text-5xl text-foreground mb-6">
-                A family business <span className="italic">built on passion.</span>
-              </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Presidential Digs is a family-run business whose mission is to make and keep happy customers with every interaction.
-              </p>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+      <PageHero>
+        <BreadcrumbNav items={breadcrumbs} />
+        <AnimatedSection>
+          <div className="max-w-3xl">
+            <span className="label-tag mb-4 block">About Us</span>
+            <h1 className="text-display text-3xl md:text-5xl text-foreground mb-6">
+              A family business <span className="italic">built on passion.</span>
+            </h1>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Presidential Digs is a family-run business whose mission is to make and keep happy customers with every interaction.
+            </p>
+          </div>
+        </AnimatedSection>
+      </PageHero>
 
       {/* Our Story */}
       <section className="section-padding bg-card">
@@ -140,7 +146,6 @@ const About = () => (
         <div className="container-narrow text-center">
           <AnimatedSection>
             <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-              {/* BUSINESS_APPROVAL_REQUIRED: confirm and update these headline metrics. */}
               {[
                 { num: "500+", label: "Homes Purchased" },
                 { num: "8.4", label: "Avg. Days to Close" },

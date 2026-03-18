@@ -6,8 +6,9 @@ import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
 import { MapPin, Check } from "lucide-react";
 import { Seo } from "../components/Seo";
+import BreadcrumbNav, { breadcrumbJsonLd } from "../components/BreadcrumbNav";
+import PageHero from "../components/PageHero";
 
-// BUSINESS_APPROVAL_REQUIRED: keep this map aligned with `ServiceAreas` and your live markets.
 const locationData: Record<string, {
   name: string;
   type: "state" | "city";
@@ -38,44 +39,49 @@ const LocationPage = () => {
   const pageTitle = `Sell Your House Fast in ${data.name} | Presidential Digs`;
   const description = `Get a fair cash offer for your home in ${data.name}. We buy houses as-is with no repairs, fees, or showings required.`;
 
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: data.name },
+  ];
+
   return (
     <>
       <Seo
         title={pageTitle}
         description={description}
         canonicalPath={`/locations/${effectiveSlug}`}
+        jsonLd={breadcrumbJsonLd(breadcrumbs)}
       />
       <Header />
       <main>
-        <section className="section-padding bg-secondary">
-          <div className="container-narrow">
-            <AnimatedSection>
-              <div className="grid md:grid-cols-2 gap-12 items-start">
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <MapPin className="w-4 h-4 text-accent" />
-                    <span className="text-accent font-semibold tracking-widest uppercase text-xs">We Buy Houses in {data.name}</span>
-                  </div>
-                  <h1 className="text-display text-3xl md:text-5xl text-foreground mb-6">
-                    Sell your {data.name} home fast. <span className="italic">For cash.</span>
-                  </h1>
-                  <p className="text-muted-foreground leading-relaxed mb-8">
-                    Our {data.name} specialists understand the local market and provide fair, competitive cash offers. No agents, no repairs, no fees — just a simple, dignified sale.
-                  </p>
-                  <div className="space-y-2">
-                    {["Fair cash offer within 24 hours", "Close in as few as 7 days", "We pay all closing costs", "Buy in any condition"].map((b) => (
-                      <div key={b} className="flex items-center gap-3 text-sm text-foreground">
-                        <Check className="w-4 h-4 text-success shrink-0" />
-                        {b}
-                      </div>
-                    ))}
-                  </div>
+        <PageHero>
+          <BreadcrumbNav items={breadcrumbs} />
+          <AnimatedSection>
+            <div className="grid md:grid-cols-2 gap-12 items-start">
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <MapPin className="w-4 h-4 text-accent" />
+                  <span className="text-accent font-semibold tracking-widest uppercase text-xs">We Buy Houses in {data.name}</span>
                 </div>
-                <LeadForm variant="hero" />
+                <h1 className="text-display text-3xl md:text-5xl text-foreground mb-6">
+                  Sell your {data.name} home fast. <span className="italic">For cash.</span>
+                </h1>
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  Our {data.name} specialists understand the local market and provide fair, competitive cash offers. No agents, no repairs, no fees — just a simple, dignified sale.
+                </p>
+                <div className="space-y-2">
+                  {["Fair cash offer within 24 hours", "Close in as few as 7 days", "We pay all closing costs", "Buy in any condition"].map((b) => (
+                    <div key={b} className="flex items-center gap-3 text-sm text-foreground">
+                      <Check className="w-4 h-4 text-success shrink-0" />
+                      {b}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </AnimatedSection>
-          </div>
-        </section>
+              <LeadForm variant="hero" />
+            </div>
+          </AnimatedSection>
+        </PageHero>
 
         {data.cities && (
           <section className="section-padding bg-card">

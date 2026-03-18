@@ -6,6 +6,8 @@ import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
 import { Home, Gavel, UserX, Wrench, Building, Key, HeartCrack, Plane, Receipt, ArrowDownCircle, BriefcaseBusiness, UserMinus, Check, ArrowRight } from "lucide-react";
 import { Seo } from "../components/Seo";
+import BreadcrumbNav, { breadcrumbJsonLd } from "../components/BreadcrumbNav";
+import PageHero from "../components/PageHero";
 
 const situationData: Record<string, {
   icon: typeof Home;
@@ -325,29 +327,35 @@ const SituationPage = () => {
   const pageTitle = `${data.title} | Sell Your House Fast | Presidential Digs`;
   const description = data.description;
 
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: "Situations", href: "/situations" },
+    { label: data.title },
+  ];
+
   return (
     <>
       <Seo
         title={pageTitle}
         description={description}
         canonicalPath={`/situations/${effectiveSlug}`}
+        jsonLd={breadcrumbJsonLd(breadcrumbs)}
       />
       <Header />
       <main>
-        <section className="section-padding bg-secondary">
-          <div className="container-narrow">
-            <AnimatedSection>
-              <div className="grid md:grid-cols-2 gap-12 items-start">
-                <div>
-                  <span className="text-accent font-semibold tracking-widest uppercase text-xs mb-4 block">{data.title}</span>
-                  <h1 className="text-display text-3xl md:text-5xl text-foreground mb-6">{data.headline}</h1>
-                  <p className="text-muted-foreground leading-relaxed">{data.description}</p>
-                </div>
-                <LeadForm variant="hero" />
+        <PageHero>
+          <BreadcrumbNav items={breadcrumbs} />
+          <AnimatedSection>
+            <div className="grid md:grid-cols-2 gap-12 items-start">
+              <div>
+                <span className="text-accent font-semibold tracking-widest uppercase text-xs mb-4 block">{data.title}</span>
+                <h1 className="text-display text-3xl md:text-5xl text-foreground mb-6">{data.headline}</h1>
+                <p className="text-muted-foreground leading-relaxed">{data.description}</p>
               </div>
-            </AnimatedSection>
-          </div>
-        </section>
+              <LeadForm variant="hero" />
+            </div>
+          </AnimatedSection>
+        </PageHero>
 
         <section className="section-padding bg-card">
           <div className="container-narrow">
