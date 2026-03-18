@@ -1,6 +1,13 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
+import BreadcrumbNav, { breadcrumbJsonLd } from "@/components/BreadcrumbNav";
+import PageHero from "@/components/PageHero";
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Terms of Service" },
+];
 
 const TermsOfService = () => (
   <>
@@ -8,13 +15,17 @@ const TermsOfService = () => (
       title="Terms of Service | Presidential Digs"
       description="Read the terms and conditions governing your use of the Presidential Digs website and services."
       canonicalPath="/terms"
+      jsonLd={breadcrumbJsonLd(breadcrumbs)}
     />
     <Header />
     <main className="bg-background min-h-screen">
-      <div className="container-narrow px-5 md:px-6 py-16 md:py-24">
+      <PageHero className="bg-secondary !py-12 md:!py-16">
+        <BreadcrumbNav items={breadcrumbs} />
         <h1 className="text-display text-3xl md:text-4xl mb-3">Terms of Service</h1>
-        <p className="text-muted-foreground text-sm mb-12">Last updated: March 17, 2026</p>
+        <p className="text-muted-foreground text-sm">Last updated: March 17, 2026</p>
+      </PageHero>
 
+      <div className="container-narrow px-5 md:px-6 py-12 md:py-16">
         <div className="prose prose-neutral max-w-none space-y-8 text-[15px] leading-relaxed text-foreground/80">
           <section>
             <h2 className="text-display text-xl mb-3 text-foreground">1. Acceptance of Terms</h2>

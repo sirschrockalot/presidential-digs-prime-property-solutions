@@ -6,6 +6,8 @@ import FinalCTA from "../components/home/FinalCTA";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Seo } from "../components/Seo";
+import BreadcrumbNav, { breadcrumbJsonLd } from "../components/BreadcrumbNav";
+import PageHero from "../components/PageHero";
 
 const categories = [
   {
@@ -49,6 +51,11 @@ const categories = [
   },
 ];
 
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "FAQ" },
+];
+
 const FAQPage = () => {
   const [openItems, setOpenItems] = useState<Record<string, number | null>>({});
 
@@ -77,21 +84,22 @@ const FAQPage = () => {
         title="FAQ | Selling Your House to Presidential Digs"
         description="Get clear answers to the most common questions about selling your house for cash to Presidential Digs — process, pricing, timelines, and more."
         canonicalPath="/faq"
-        jsonLd={faqJsonLd}
+        jsonLd={[breadcrumbJsonLd(breadcrumbs), faqJsonLd]}
       />
       <Header />
       <main>
-        <section className="section-padding bg-secondary">
-          <div className="container-narrow text-center">
-            <AnimatedSection>
+        <PageHero>
+          <BreadcrumbNav items={breadcrumbs} />
+          <AnimatedSection>
+            <div className="text-center">
               <span className="text-accent font-semibold tracking-widest uppercase text-xs mb-4 block">FAQ</span>
               <h1 className="text-display text-3xl md:text-5xl text-foreground mb-4">Frequently Asked Questions</h1>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Transparent answers to the questions sellers ask most.
               </p>
-            </AnimatedSection>
-          </div>
-        </section>
+            </div>
+          </AnimatedSection>
+        </PageHero>
 
         <section className="section-padding bg-card">
           <div className="container-narrow max-w-3xl space-y-12">

@@ -3,6 +3,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Seo } from "@/components/Seo";
 import AnimatedSection from "@/components/AnimatedSection";
+import BreadcrumbNav, { breadcrumbJsonLd } from "@/components/BreadcrumbNav";
+import PageHero from "@/components/PageHero";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,6 +39,11 @@ const benefits = [
   { icon: ShieldCheck, title: "Confidential", desc: "All submissions are private. We never share your deal details." },
 ];
 
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "JV Partner" },
+];
+
 const JVPartner = () => {
   const [submitted, setSubmitted] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -62,7 +69,6 @@ const JVPartner = () => {
   });
 
   const onSubmit = async (values: JVFormValues) => {
-    // NOTE: Integrate this handler with your JV intake workflow or CRM.
     console.info("JV submission:", { ...values, fileName });
     setSubmitted(true);
     reset();
@@ -97,12 +103,21 @@ const JVPartner = () => {
         title="Submit a JV Deal | Presidential Digs"
         description="Have a deal? Partner with Presidential Digs on your next joint venture. Submit your deal details for review."
         canonicalPath="/jv"
+        jsonLd={breadcrumbJsonLd(breadcrumbs)}
       />
       <Header />
       <main className="bg-background min-h-screen">
         {/* Hero */}
-        <section className="bg-primary py-16 md:py-24">
-          <div className="container-narrow px-5 md:px-6">
+        <section className="relative bg-primary py-16 md:py-24 overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-[0.05]"
+            style={{
+              backgroundImage: "radial-gradient(circle, hsl(var(--primary-foreground)) 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+            }}
+          />
+          <div className="container-narrow px-5 md:px-6 relative">
+            <BreadcrumbNav items={breadcrumbs} />
             <AnimatedSection>
               <div className="max-w-2xl">
                 <span className="label-tag mb-4 block text-primary-foreground/60">Investor Partners</span>
@@ -146,7 +161,6 @@ const JVPartner = () => {
               <p className="text-sm text-muted-foreground mb-10">All fields marked with * are required. Your information stays confidential.</p>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                {/* Contact Info */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground mb-4">Contact Information</h3>
                   <div className="grid md:grid-cols-2 gap-3">
@@ -165,7 +179,6 @@ const JVPartner = () => {
                   </div>
                 </div>
 
-                {/* Deal Details */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground mb-4">Deal Details</h3>
                   <div className="grid md:grid-cols-2 gap-3">
@@ -195,7 +208,6 @@ const JVPartner = () => {
                   </div>
                 </div>
 
-                {/* Contract Upload */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground mb-4">Purchase Contract</h3>
                   <label className="flex items-center gap-3 border border-dashed border-border rounded-sm px-4 py-5 cursor-pointer hover:border-accent/50 transition-colors bg-secondary/50">
@@ -219,7 +231,6 @@ const JVPartner = () => {
                   </label>
                 </div>
 
-                {/* Notes */}
                 <div>
                   <textarea
                     placeholder="Additional notes about the deal..."

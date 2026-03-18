@@ -5,6 +5,8 @@ import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
 import { Check, X } from "lucide-react";
 import { Seo } from "../components/Seo";
+import BreadcrumbNav, { breadcrumbJsonLd } from "../components/BreadcrumbNav";
+import PageHero from "../components/PageHero";
 
 const comparisons = [
   { feature: "Commission Fees", agent: "5–6% of sale price", us: "$0" },
@@ -15,41 +17,46 @@ const comparisons = [
   { feature: "Certainty of Sale", agent: "Buyers can back out", us: "Guaranteed close" },
 ];
 
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Sell Your House" },
+];
+
 const SellYourHouse = () => (
   <>
     <Seo
       title="Sell Your House Fast | Presidential Digs"
       description="Skip repairs, showings, and months of uncertainty. Get a fair cash offer for your house and close on your schedule with Presidential Digs."
       canonicalPath="/sell-your-house"
+      jsonLd={breadcrumbJsonLd(breadcrumbs)}
     />
     <Header />
     <main>
-      <section className="section-padding bg-secondary">
-        <div className="container-narrow">
-          <AnimatedSection>
-            <div className="grid md:grid-cols-2 gap-12 items-start">
-              <div>
-                <span className="text-accent font-semibold tracking-widest uppercase text-xs mb-4 block">Sell Your House Fast</span>
-                <h1 className="text-display text-3xl md:text-5xl text-foreground mb-6">
-                  Skip the hassle. <span className="italic">Get a fair offer today.</span>
-                </h1>
-                <p className="text-muted-foreground leading-relaxed mb-8">
-                  Whether your property needs major repairs, you're facing foreclosure, or you simply want a fast, certain sale — we provide a professional cash exit with zero fees and zero stress.
-                </p>
-                <div className="space-y-3">
-                  {["No listing, no showings, no waiting", "Close on your schedule — as fast as 7 days", "We buy in any condition, any situation", "Zero fees, commissions, or closing costs"].map((item) => (
-                    <div key={item} className="flex items-center gap-3 text-sm text-foreground">
-                      <Check className="w-4 h-4 text-success shrink-0" />
-                      {item}
-                    </div>
-                  ))}
-                </div>
+      <PageHero>
+        <BreadcrumbNav items={breadcrumbs} />
+        <AnimatedSection>
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <span className="text-accent font-semibold tracking-widest uppercase text-xs mb-4 block">Sell Your House Fast</span>
+              <h1 className="text-display text-3xl md:text-5xl text-foreground mb-6">
+                Skip the hassle. <span className="italic">Get a fair offer today.</span>
+              </h1>
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                Whether your property needs major repairs, you're facing foreclosure, or you simply want a fast, certain sale — we provide a professional cash exit with zero fees and zero stress.
+              </p>
+              <div className="space-y-3">
+                {["No listing, no showings, no waiting", "Close on your schedule — as fast as 7 days", "We buy in any condition, any situation", "Zero fees, commissions, or closing costs"].map((item) => (
+                  <div key={item} className="flex items-center gap-3 text-sm text-foreground">
+                    <Check className="w-4 h-4 text-success shrink-0" />
+                    {item}
+                  </div>
+                ))}
               </div>
-              <LeadForm variant="hero" />
             </div>
-          </AnimatedSection>
-        </div>
-      </section>
+            <LeadForm variant="hero" />
+          </div>
+        </AnimatedSection>
+      </PageHero>
 
       {/* Comparison Table */}
       <section className="section-padding bg-card">
