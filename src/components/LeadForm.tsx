@@ -228,7 +228,7 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
             {...register("smsConsent")}
           />
           <label htmlFor="smsConsent" className="text-[11px] leading-relaxed text-muted-foreground cursor-pointer">
-            I agree to receive SMS/text messages from Presidential Digs. Msg & data rates may apply. Reply STOP to opt out. See our{" "}
+            I agree to receive SMS/text messages from Presidential Digs. Msg & data rates may apply. Reply STOP to opt out. Reply HELP for help. See our{" "}
             <a href="/sms-policy" className="text-accent underline underline-offset-2 hover:text-accent/80">SMS Policy</a>{" "}and{" "}
             <a href="/privacy" className="text-accent underline underline-offset-2 hover:text-accent/80">Privacy Policy</a>.
           </label>

@@ -28,7 +28,7 @@ const jvSchema = z.object({
   arv: z.string().optional(),
   rehabEstimate: z.string().optional(),
   dealType: z.string().min(1, "Please select a deal type."),
-  notes: z.string().max(2000).optional(),
+  notes: z.string().max(2000, "Please keep your notes under 2000 characters.").optional(),
 });
 
 type JVFormValues = z.infer<typeof jvSchema>;
@@ -47,6 +47,7 @@ const breadcrumbs = [
 const JVPartner = () => {
   const [submitted, setSubmitted] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -69,9 +70,36 @@ const JVPartner = () => {
   });
 
   const onSubmit = async (values: JVFormValues) => {
-    console.info("JV submission:", { ...values, fileName });
-    setSubmitted(true);
-    reset();
+    setSubmitError(null);
+    try {
+      const response = await fetch("/api/jv-partner", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...values,
+          fileName,
+          source: "website",
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          honeypot: "",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("We couldn't submit your deal. Please try again in a moment.");
+      }
+
+      setSubmitted(true);
+      reset();
+      setFileName(null);
+    } catch (error) {
+      if (error instanceof Error) {
+        setSubmitError(error.message);
+      } else {
+        setSubmitError("We couldn't submit your deal. Please try again in a moment.");
+      }
+    }
   };
 
   if (submitted) {
@@ -160,7 +188,12 @@ const JVPartner = () => {
               <h2 className="text-display text-2xl md:text-3xl text-foreground mb-2">Submit Your Deal</h2>
               <p className="text-sm text-muted-foreground mb-10">All fields marked with * are required. Your information stays confidential.</p>
 
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" aria-busy={isSubmitting} noValidate>
+                {submitError && (
+                  <div className="text-[11px] text-destructive bg-destructive/5 border border-destructive/30 rounded-sm px-3 py-2" role="alert">
+                    {submitError}
+                  </div>
+                )}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground mb-4">Contact Information</h3>
                   <div className="grid md:grid-cols-2 gap-3">

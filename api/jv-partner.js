@@ -4,73 +4,87 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  const { name, phone, email, address, message, source, page, smsConsent, honeypot } = req.body || {};
+  const {
+    name,
+    email,
+    phone,
+    propertyAddress,
+    askingPrice,
+    arv,
+    rehabEstimate,
+    dealType,
+    notes,
+    fileName,
+    source,
+    page,
+    honeypot,
+  } = req.body || {};
 
   // Basic spam protection: ignore submissions that fill the honeypot field
   const isSpam = typeof honeypot === "string" && honeypot.trim().length > 0;
 
   if (!isSpam) {
-    if (!name || !phone || !email || !address) {
+    if (!name || !email || !phone || !propertyAddress || !askingPrice || !dealType) {
       return res.status(400).json({ error: "Missing required fields." });
-    }
-
-    if (!smsConsent) {
-      return res.status(400).json({ error: "SMS consent is required." });
     }
   }
 
   const id = (globalThis.crypto && crypto.randomUUID && crypto.randomUUID()) || `${Date.now()}`;
   const submittedAt = new Date().toISOString();
 
-  const normalizedLead = {
+  const normalizedJV = {
     id,
     name,
-    phone,
     email,
-    address,
-    message: message ?? "",
+    phone,
+    propertyAddress,
+    askingPrice,
+    arv: arv ?? "",
+    rehabEstimate: rehabEstimate ?? "",
+    dealType,
+    notes: notes ?? "",
+    fileName: fileName ?? "",
     source: source ?? "website",
     page: page ?? null,
-    smsConsent: Boolean(smsConsent),
-    receivedAt: submittedAt,
     submittedAt,
     isSpam,
   };
 
   // eslint-disable-next-line no-console
-  console.info("[lead] received", { id: normalizedLead.id, isSpam: normalizedLead.isSpam });
+  console.info("[jv] received", { id: normalizedJV.id, isSpam: normalizedJV.isSpam });
 
-  const webhookUrl = process.env.TURNKEY_LEAD_WEBHOOK_URL;
+  const webhookUrl = process.env.TURNKEY_JV_WEBHOOK_URL;
   const apiKey = process.env.TURNKEY_API_KEY;
 
-  // Map normalized lead into the payload Turnkey expects.
-  // See Turnkey docs: api_key, leadsource, fname, lname, phone, email, address, city, state, zip, ask_price, beds, baths, notes.
-  const safeName = normalizedLead.name || "";
+  const safeName = normalizedJV.name || "";
   const [firstName, ...restName] = safeName.trim().split(" ");
   const lastName = restName.join(" ");
 
-  const digitsOnlyPhone = (normalizedLead.phone || "").replace(/\D/g, "");
+  const digitsOnlyPhone = (normalizedJV.phone || "").replace(/\D/g, "");
   const normalizedPhone = digitsOnlyPhone.length === 10 ? digitsOnlyPhone : digitsOnlyPhone;
 
   const turnkeyPayload = {
     api_key: apiKey || "",
-    leadsource: normalizedLead.source || "website",
+    leadsource: `${normalizedJV.source || "website"} - JV`,
     fname: firstName || "",
     lname: lastName || "",
     phone: normalizedPhone,
-    email: normalizedLead.email || "",
-    address: normalizedLead.address || "",
+    email: normalizedJV.email || "",
+    address: normalizedJV.propertyAddress || "",
     city: "",
     state: "",
     zip: "",
-    ask_price: "",
+    ask_price: normalizedJV.askingPrice || "",
     beds: "",
     baths: "",
     notes: [
-      normalizedLead.message,
-      normalizedLead.page ? `Page: ${normalizedLead.page}` : "",
-      normalizedLead.smsConsent ? "SMS consent: true" : "SMS consent: false",
-      normalizedLead.isSpam ? "Flagged as spam by honeypot" : "",
+      normalizedJV.dealType ? `Deal type: ${normalizedJV.dealType}` : "",
+      normalizedJV.arv ? `ARV: ${normalizedJV.arv}` : "",
+      normalizedJV.rehabEstimate ? `Rehab estimate: ${normalizedJV.rehabEstimate}` : "",
+      normalizedJV.notes,
+      normalizedJV.fileName ? `File: ${normalizedJV.fileName}` : "",
+      normalizedJV.page ? `Page: ${normalizedJV.page}` : "",
+      normalizedJV.isSpam ? "Flagged as spam by honeypot" : "",
     ]
       .filter(Boolean)
       .join(" | "),
@@ -78,7 +92,7 @@ export default async function handler(req, res) {
 
   if (!webhookUrl || !apiKey) {
     // eslint-disable-next-line no-console
-    console.error("[lead] TURNKEY_LEAD_WEBHOOK_URL or TURNKEY_API_KEY is not set. Lead will not be forwarded.");
+    console.error("[jv] TURNKEY_JV_WEBHOOK_URL or TURNKEY_API_KEY is not set. JV lead will not be forwarded.");
     return res.status(502).json({ error: "We couldn't submit your request. Please try again in a moment." });
   }
 
@@ -93,7 +107,7 @@ export default async function handler(req, res) {
 
     if (!webhookResponse.ok) {
       // eslint-disable-next-line no-console
-      console.error("[lead] Turnkey webhook failed", {
+      console.error("[jv] Turnkey JV webhook failed", {
         status: webhookResponse.status,
         statusText: webhookResponse.statusText,
       });
@@ -109,14 +123,14 @@ export default async function handler(req, res) {
 
     if (body && body.result === "fail") {
       // eslint-disable-next-line no-console
-      console.error("[lead] Turnkey webhook returned failure", {
+      console.error("[jv] Turnkey JV webhook returned failure", {
         reason: body.reason,
       });
       return res.status(502).json({ error: "We couldn't submit your request. Please try again in a moment." });
     }
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error("[lead] Turnkey webhook error", error);
+    console.error("[jv] Turnkey JV webhook error", error);
     return res.status(502).json({ error: "We couldn't submit your request. Please try again in a moment." });
   }
 
