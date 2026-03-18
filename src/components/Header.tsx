@@ -8,7 +8,7 @@ import { trackCTA, trackNavClick, trackPhoneClick } from "@/lib/analytics";
 const navLinks = [
   { label: "How It Works", href: "/how-it-works" },
   { label: "About", href: "/about" },
-  { label: "Situations", href: "/situations/inherited-property" },
+  { label: "Situations", href: "/situations" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
