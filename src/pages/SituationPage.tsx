@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import LeadForm from "../components/LeadForm";
 import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
-import { Home, Gavel, UserX, Wrench, Building, Key, Check, ArrowRight } from "lucide-react";
+import { Home, Gavel, UserX, Wrench, Building, Key, HeartCrack, Plane, Receipt, ArrowDownCircle, BriefcaseBusiness, UserMinus, Check, ArrowRight } from "lucide-react";
 import { Seo } from "../components/Seo";
 
 const situationData: Record<string, {
@@ -164,6 +164,156 @@ const situationData: Record<string, {
       { q: "Do you work with probate attorneys?", a: "Yes. We regularly coordinate with probate attorneys and can provide documentation formatted for court approval." },
       { q: "How does the timeline work with probate?", a: "We align our process with your probate schedule. Whether it's weeks or months, we work on the court's timeline." },
       { q: "What if the estate has debts or liens?", a: "We can work through title issues, liens, and estate debts as part of the closing process." },
+    ],
+  },
+  "divorce": {
+    icon: HeartCrack,
+    title: "Divorce",
+    headline: "Selling during a divorce doesn't have to add more stress.",
+    description: "Dividing assets is one of the hardest parts of divorce. A fast, fair cash offer on your home lets both parties move forward without the uncertainty of a traditional listing.",
+    challenges: [
+      "Both parties need to agree on a sale price",
+      "Lengthy listing process delays settlement",
+      "Ongoing mortgage payments during proceedings",
+      "Emotional difficulty of showings and open houses",
+      "Market fluctuations can derail negotiations",
+    ],
+    solutions: [
+      "Fair cash offer both parties can evaluate quickly",
+      "Close in days, not months — accelerate your settlement",
+      "No showings, no strangers walking through your home",
+      "Guaranteed price removes market uncertainty",
+      "We work with both attorneys to ensure a smooth close",
+    ],
+    faqs: [
+      { q: "Do both spouses need to agree?", a: "Yes, but our transparent process and fair offer make it easier for both parties to reach agreement quickly." },
+      { q: "Can you work with our attorneys?", a: "Absolutely. We coordinate with both legal teams to ensure the transaction aligns with your divorce agreement." },
+      { q: "How fast can we close?", a: "We can close in as few as 7 days, helping you finalize the property division and move forward." },
+    ],
+  },
+  "relocating": {
+    icon: Plane,
+    title: "Relocating",
+    headline: "Moving for work or life? Sell your home before you go.",
+    description: "Job transfers, military relocations, and life changes don't wait for the housing market. Get a guaranteed cash offer so you can focus on your next chapter.",
+    challenges: [
+      "Tight timeline to start a new job or assignment",
+      "Managing a home sale from another city or state",
+      "Carrying two mortgages during a traditional listing",
+      "Risk of the home sitting on the market for months",
+      "Coordinating showings when you've already moved",
+    ],
+    solutions: [
+      "Cash offer within 24 hours of walkthrough",
+      "Close on your schedule — even before your move date",
+      "No need to be present for closing",
+      "Eliminate the risk of paying two mortgages",
+      "Skip staging, repairs, and open houses entirely",
+    ],
+    faqs: [
+      { q: "Can I close remotely?", a: "Yes. We handle remote closings regularly with mobile notaries and secure document delivery." },
+      { q: "What if I've already moved?", a: "No problem. We can do a virtual walkthrough and handle everything without you needing to return." },
+      { q: "How quickly can you make an offer?", a: "We typically provide a cash offer within 24 hours of viewing the property." },
+    ],
+  },
+  "behind-on-taxes": {
+    icon: Receipt,
+    title: "Behind on Taxes",
+    headline: "Owe back taxes? A cash sale can clear the slate.",
+    description: "Falling behind on property taxes can lead to liens, penalties, and even a tax sale. Selling your home for cash lets you settle your tax debt and protect your equity.",
+    challenges: [
+      "Accumulating penalties and interest",
+      "Risk of tax lien or tax sale",
+      "Difficulty selling with a tax lien on title",
+      "Traditional buyers avoid properties with tax issues",
+      "Stress of dealing with the county or IRS",
+    ],
+    solutions: [
+      "We purchase homes with tax liens and back taxes",
+      "Back taxes are settled at closing from proceeds",
+      "Fast close stops penalties from growing",
+      "No need to resolve liens before selling",
+      "We handle title clearing and all paperwork",
+    ],
+    faqs: [
+      { q: "Can I sell if I owe back taxes?", a: "Yes. Owed taxes are paid from the sale proceeds at closing. We handle the coordination with the taxing authority." },
+      { q: "What if there's a tax lien on my property?", a: "We buy properties with tax liens regularly. The lien is satisfied through the closing process." },
+      { q: "Will I still get money from the sale?", a: "In most cases, yes. After taxes and liens are satisfied, the remaining equity is yours." },
+    ],
+  },
+  "downsizing": {
+    icon: ArrowDownCircle,
+    title: "Downsizing",
+    headline: "Ready to simplify? Sell your home fast and move on.",
+    description: "Whether you're retiring, becoming an empty nester, or just ready for less space, we make it easy to sell your current home quickly so you can start your next chapter.",
+    challenges: [
+      "Large home is expensive to maintain",
+      "Traditional listing takes months of showings",
+      "Need sale proceeds to fund your next home",
+      "Decades of belongings to sort through",
+      "Emotional attachment makes the process harder",
+    ],
+    solutions: [
+      "Fast cash offer lets you plan your move with certainty",
+      "Close on your timeline — no pressure to rush out",
+      "Leave behind what you don't want — we handle cleanout",
+      "No repairs or updates needed before selling",
+      "Compassionate process that respects your history",
+    ],
+    faqs: [
+      { q: "Do I need to empty the house first?", a: "No. Leave behind anything you don't want to take. We handle all cleanout after closing." },
+      { q: "Can I stay until my new place is ready?", a: "We offer flexible closing dates and can work with your timeline to ensure a smooth transition." },
+      { q: "Is a cash offer less than market value?", a: "Our offers are fair and transparent. You save on realtor commissions, repairs, and months of carrying costs." },
+    ],
+  },
+  "tired-landlord": {
+    icon: BriefcaseBusiness,
+    title: "Tired Landlord",
+    headline: "Done being a landlord? We'll take it from here.",
+    description: "Rental property management is a full-time job. Between maintenance, tenants, and regulations, it's no wonder many landlords are ready to sell. We buy rental properties as-is.",
+    challenges: [
+      "Constant maintenance calls and repair costs",
+      "Dealing with difficult or non-paying tenants",
+      "Increasing regulations and compliance requirements",
+      "Property management fees eating into returns",
+      "Difficulty selling with tenants in place",
+    ],
+    solutions: [
+      "We buy rental properties with tenants in place",
+      "No need to renovate or make repairs",
+      "Skip the eviction process — we handle it",
+      "Fast cash close so you can reinvest or retire",
+      "Fair offer based on the property, not its problems",
+    ],
+    faqs: [
+      { q: "Do I need to evict tenants first?", a: "No. We purchase tenant-occupied properties and handle the tenant relationship after closing." },
+      { q: "What if the property needs work?", a: "We buy in any condition. Deferred maintenance doesn't affect our ability to close." },
+      { q: "Can I sell multiple rental properties?", a: "Absolutely. We can make offers on your entire portfolio and close on a schedule that works for you." },
+    ],
+  },
+  "sell-without-realtor": {
+    icon: UserMinus,
+    title: "Sell Without a Realtor",
+    headline: "Skip the commissions. Sell direct for cash.",
+    description: "Realtor commissions, months of showings, and deal-killing contingencies aren't your only option. Sell directly to us and keep more money in your pocket.",
+    challenges: [
+      "6% realtor commissions eat into your equity",
+      "Months of showings and open houses",
+      "Buyer financing falls through at the last minute",
+      "Inspection and appraisal contingencies kill deals",
+      "Repairs demanded after inspection",
+    ],
+    solutions: [
+      "Zero commissions — sell direct to us",
+      "No showings, no open houses, no strangers in your home",
+      "Cash offer means no financing contingencies",
+      "No inspections that derail the sale",
+      "Close in as few as 7 days",
+    ],
+    faqs: [
+      { q: "How do you determine your offer price?", a: "We analyze comparable sales, property condition, and market data. Our process is fully transparent — we show our work." },
+      { q: "Is it really free? No fees at all?", a: "Correct. No commissions, no closing costs, no hidden fees. The offer we make is the amount you receive." },
+      { q: "What's the catch?", a: "There isn't one. We make our money by renovating and reselling. You get speed, certainty, and simplicity." },
     ],
   },
 };

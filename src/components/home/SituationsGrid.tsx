@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Home, Gavel, UserX, Wrench, Building, Key } from "lucide-react";
+import { Home, Gavel, UserX, Wrench, Building, Key, HeartCrack, Plane, Receipt, ArrowDownCircle, BriefcaseBusiness, UserMinus } from "lucide-react";
 import AnimatedSection from "../AnimatedSection";
 
 const situations = [
@@ -9,6 +9,12 @@ const situations = [
   { icon: Wrench, title: "Needs Repairs", slug: "needs-repairs", desc: "Skip the contractor. We purchase in any condition." },
   { icon: Building, title: "Vacant Home", slug: "vacant-home", desc: "Stop paying carrying costs on an empty property." },
   { icon: Key, title: "Probate", slug: "probate", desc: "Simplify the estate process with a guaranteed cash sale." },
+  { icon: HeartCrack, title: "Divorce", slug: "divorce", desc: "Sell quickly and split assets fairly during a difficult time." },
+  { icon: Plane, title: "Relocating", slug: "relocating", desc: "Moving for work or life? Get a fast cash offer before you go." },
+  { icon: Receipt, title: "Behind on Taxes", slug: "behind-on-taxes", desc: "Resolve tax liens and back taxes with a clean cash sale." },
+  { icon: ArrowDownCircle, title: "Downsizing", slug: "downsizing", desc: "Simplify your life and unlock your home equity fast." },
+  { icon: BriefcaseBusiness, title: "Tired Landlord", slug: "tired-landlord", desc: "Done being a landlord? We'll buy your rental property as-is." },
+  { icon: UserMinus, title: "Sell Without a Realtor", slug: "sell-without-realtor", desc: "Skip the commissions, showings, and months of waiting." },
 ];
 
 const SituationsGrid = () => (
