@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Home, Gavel, UserX, Wrench, Building, Key, HeartCrack, Plane, Receipt, ArrowDownCircle, BriefcaseBusiness, UserMinus } from "lucide-react";
+import { Home, Gavel, UserX, Wrench, Building, Key, HeartCrack, Plane, Receipt, ArrowDownCircle, BriefcaseBusiness, UserMinus, ChevronRight } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import AnimatedSection from "../components/AnimatedSection";
@@ -21,41 +21,98 @@ const situations = [
   { icon: UserMinus, title: "Sell Without a Realtor", slug: "sell-without-realtor", desc: "Skip the commissions, showings, and months of waiting." },
 ];
 
+const baseUrl = import.meta.env.VITE_SITE_URL || "";
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${baseUrl}/` },
+    { "@type": "ListItem", position: 2, name: "Situations", item: `${baseUrl}/situations` },
+  ],
+};
+
+const itemListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Situations We Handle",
+  description: "All property situations Presidential Digs handles with fast cash offers.",
+  numberOfItems: situations.length,
+  itemListElement: situations.map((s, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: s.title,
+    url: `${baseUrl}/situations/${s.slug}`,
+  })),
+};
+
 const SituationsIndex = () => (
   <>
     <Seo
       title="Situations We Handle | Presidential Digs"
       description="Whatever your situation — foreclosure, divorce, inherited property, bad tenants, or more — we provide a fast, fair cash offer so you can move forward."
       canonicalPath="/situations"
+      jsonLd={[breadcrumbJsonLd, itemListJsonLd]}
     />
     <Header />
     <main>
-      <section className="section-padding bg-secondary">
-        <div className="container-narrow">
+      {/* Hero */}
+      <section className="relative section-padding bg-secondary overflow-hidden">
+        {/* Subtle radial dot texture */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+
+        <div className="container-narrow relative">
+          {/* Breadcrumb */}
+          <AnimatedSection>
+            <nav aria-label="Breadcrumb" className="mb-8">
+              <ol className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
+                <li>
+                  <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
+                </li>
+                <li><ChevronRight className="w-3 h-3" /></li>
+                <li className="text-foreground font-medium" aria-current="page">Situations</li>
+              </ol>
+            </nav>
+          </AnimatedSection>
+
           <AnimatedSection>
             <div className="max-w-2xl mb-14 md:mb-16">
-              <span className="text-accent font-semibold tracking-widest uppercase text-xs mb-4 block">Specializations</span>
+              <span className="label-tag">Specializations</span>
               <h1 className="text-display text-3xl md:text-5xl text-foreground mb-4">
                 Whatever your situation, <span className="italic text-accent">we can help.</span>
               </h1>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed max-w-lg">
                 We've helped hundreds of homeowners in complex situations find a simple, dignified path forward. Select your situation below to learn how we can help.
               </p>
             </div>
           </AnimatedSection>
+
+          {/* Divider accent line */}
+          <div className="h-px w-16 bg-accent/40 mb-10 md:mb-12" />
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {situations.map((s, i) => (
               <AnimatedSection key={s.slug} delay={i * 0.04}>
                 <Link
                   to={`/situations/${s.slug}`}
-                  className="block p-6 md:p-7 bg-card rounded-sm gold-border-hover card-lift group"
+                  className="group flex flex-col justify-between p-6 md:p-7 bg-card rounded-sm gold-border-hover card-lift"
                 >
-                  <div className="w-9 h-9 rounded-sm bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors duration-500">
-                    <s.icon className="w-4.5 h-4.5 text-accent" />
+                  <div>
+                    <div className="w-9 h-9 rounded-sm bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors duration-500">
+                      <s.icon className="w-4.5 h-4.5 text-accent" />
+                    </div>
+                    <h2 className="font-semibold text-foreground mb-2 text-[15px]">{s.title}</h2>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
                   </div>
-                  <h2 className="font-semibold text-foreground mb-2 text-[15px]">{s.title}</h2>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                  <div className="flex items-center gap-1 mt-4 text-accent text-xs font-semibold tracking-wide uppercase opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all duration-500">
+                    Learn more <ChevronRight className="w-3 h-3" />
+                  </div>
                 </Link>
               </AnimatedSection>
             ))}
