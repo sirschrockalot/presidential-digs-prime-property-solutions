@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import LeadForm from "../components/LeadForm";
 import AnimatedSection from "../components/AnimatedSection";
 import FinalCTA from "../components/home/FinalCTA";
-import { Home, Gavel, UserX, Wrench, Building, Key, Check, ArrowRight } from "lucide-react";
+import { Home, Gavel, UserX, Wrench, Building, Key, HeartCrack, Plane, Receipt, ArrowDownCircle, BriefcaseBusiness, UserMinus, Check, ArrowRight } from "lucide-react";
 import { Seo } from "../components/Seo";
 
 const situationData: Record<string, {

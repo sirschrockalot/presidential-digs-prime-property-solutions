@@ -82,6 +82,20 @@ const Footer = () => (
             >
               Needs Repairs
             </Link>
+            <Link
+              to="/situations/divorce"
+              className="text-sm opacity-60 hover:opacity-100 transition-opacity"
+              onClick={() => trackNavClick("Divorce", "/situations/divorce", "footer")}
+            >
+              Divorce
+            </Link>
+            <Link
+              to="/situations/tired-landlord"
+              className="text-sm opacity-60 hover:opacity-100 transition-opacity"
+              onClick={() => trackNavClick("Tired Landlord", "/situations/tired-landlord", "footer")}
+            >
+              Tired Landlord
+            </Link>
           </nav>
         </div>
 
