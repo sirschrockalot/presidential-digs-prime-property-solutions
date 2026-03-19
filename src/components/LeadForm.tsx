@@ -13,9 +13,8 @@ const leadSchema = z.object({
   phone: z.string().min(7, "Please enter a valid phone number."),
   email: z.string().email("Please enter a valid email address."),
   message: z.string().max(1000, "Please keep your message under 1000 characters.").optional(),
-  smsConsent: z
-    .boolean()
-    .refine((value) => value, { message: "You must agree to receive SMS messages." }),
+  // Optional SMS marketing consent: users can submit without checking this box.
+  smsConsent: z.boolean().optional().default(false),
   honeypot: z.string().max(0).optional(),
 });
 
@@ -228,9 +227,10 @@ const LeadForm = ({ variant = "hero", className = "", source, page }: LeadFormPr
             {...register("smsConsent")}
           />
           <label htmlFor="smsConsent" className="text-[11px] leading-relaxed text-muted-foreground cursor-pointer">
-            I agree to receive SMS/text messages from Presidential Digs. Msg & data rates may apply. Reply STOP to opt out. Reply HELP for help. See our{" "}
-            <a href="/sms-policy" className="text-accent underline underline-offset-2 hover:text-accent/80">SMS Policy</a>{" "}and{" "}
-            <a href="/privacy" className="text-accent underline underline-offset-2 hover:text-accent/80">Privacy Policy</a>.
+            By checking this box, you consent to receive marketing communications from Presidential Digs Real Estate via SMS messages. Message
+            frequency may vary. We won&apos;t share your details with any third parties. Consent is not a condition for any purchase. Standard
+            message &amp; data rates may apply. You can opt out at any time by replying &quot;STOP&quot;. For assistance, reply with &quot;HELP&quot; or
+            contact us at (414)409 5086
           </label>
         </div>
         {errors.smsConsent && (

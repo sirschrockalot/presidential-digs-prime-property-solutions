@@ -13,10 +13,6 @@ export default async function handler(req, res) {
     if (!name || !phone || !email || !address) {
       return res.status(400).json({ error: "Missing required fields." });
     }
-
-    if (!smsConsent) {
-      return res.status(400).json({ error: "SMS consent is required." });
-    }
   }
 
   const id = (globalThis.crypto && crypto.randomUUID && crypto.randomUUID()) || `${Date.now()}`;
